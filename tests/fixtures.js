@@ -1,5 +1,6 @@
 const base = require('@playwright/test');
 const { TextBoxPage } = require('../pages/TextBoxPage');
+const { AlertsPage } = require('../pages/AlertsPage');
 
 // Расширяем базовый тест
 const myTest = base.test.extend({
@@ -9,6 +10,10 @@ const myTest = base.test.extend({
     // "Передаем" готовую страницу в тест
     await use(textBoxPage);
   },
+  alertsPage: async({ page }, use) => {
+    const alertsPage = new AlertsPage(page);
+    await use(alertsPage);
+  }
 });
 
 module.exports = { 
