@@ -34,3 +34,17 @@ test('Should show a decline message after dialog cancel', async({ page, alertsPa
   await alertsPage.triggerDialog(false);
   await alertsPage.checkConfirmMessage(declineMessage);
 })
+
+test('Should check a frame heading', async({ page, framesPage }) => {
+  const expectedFrameHeading = 'This is a sample page';
+
+  await framesPage.open();
+  await framesPage.checkBigFrameHeading(expectedFrameHeading);
+})
+
+test('Should check a nested frame heading', async({ page, framesPage }) => {
+  const expectedHeading = 'Child Iframe';
+
+  await framesPage.open('/nestedframes');
+  await framesPage.checkChildFrameHeading(expectedHeading);
+})
