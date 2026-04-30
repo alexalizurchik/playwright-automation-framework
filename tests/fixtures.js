@@ -1,6 +1,7 @@
 const base = require('@playwright/test');
 const { TextBoxPage } = require('../pages/TextBoxPage');
 const { AlertsPage } = require('../pages/AlertsPage');
+const { FramesPage } = require('../pages/FramesPage');
 
 // Расширяем базовый тест
 const myTest = base.test.extend({
@@ -13,6 +14,10 @@ const myTest = base.test.extend({
   alertsPage: async({ page }, use) => {
     const alertsPage = new AlertsPage(page);
     await use(alertsPage);
+  },
+  framesPage: async({ page }, use) => {
+    const framesPage = new FramesPage(page);
+    await use(framesPage);
   }
 });
 
