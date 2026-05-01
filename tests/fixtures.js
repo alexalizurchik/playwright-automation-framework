@@ -2,6 +2,7 @@ const base = require('@playwright/test');
 const { TextBoxPage } = require('../pages/TextBoxPage');
 const { AlertsPage } = require('../pages/AlertsPage');
 const { FramesPage } = require('../pages/FramesPage');
+const { SliderPage } = require('../pages/SliderPage');
 
 const myTest = base.test.extend({
   textBoxPage: async ({ page }, use) => {
@@ -15,6 +16,10 @@ const myTest = base.test.extend({
   framesPage: async({ page }, use) => {
     const framesPage = new FramesPage(page);
     await use(framesPage);
+  },
+  sliderPage: async({ page }, use) => {
+    const sliderPage = new SliderPage(page);
+    await use(sliderPage);
   }
 });
 
