@@ -48,3 +48,15 @@ test('Should check a nested frame heading', async({ page, framesPage }) => {
   await framesPage.open('/nestedframes');
   await framesPage.checkChildFrameHeading(expectedHeading);
 })
+
+test('Should move slider to the value', async({ page, sliderPage }) => {
+  const firstTargetValue = 100;
+  const secondTargetValue = 40;
+
+  await sliderPage.open();
+  await sliderPage.setSliderRange(firstTargetValue);
+  await sliderPage.checkInputValue(firstTargetValue);
+
+  await sliderPage.setSliderRange(secondTargetValue);
+  await sliderPage.checkInputValue(secondTargetValue);
+})
