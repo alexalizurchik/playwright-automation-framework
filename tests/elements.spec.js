@@ -60,3 +60,11 @@ test('Should move slider to the value', async({ page, sliderPage }) => {
   await sliderPage.setSliderRange(secondTargetValue);
   await sliderPage.checkInputValue(secondTargetValue);
 })
+
+test('Should reset progress bar', async( { page, progressBarPage })=> {
+  await progressBarPage.open();
+  await progressBarPage.startProgress();
+  await progressBarPage.waitForCompletion();
+  await progressBarPage.resetProgress();
+  await progressBarPage.checkIsReset();
+})
