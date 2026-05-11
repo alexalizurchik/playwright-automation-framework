@@ -68,3 +68,9 @@ test('Should reset progress bar', async( { page, progressBarPage })=> {
   await progressBarPage.resetProgress();
   await progressBarPage.checkIsReset();
 })
+
+test('Should drag and drop element', async({ page, dragAndDropPage }) => {
+  await dragAndDropPage.open();
+  await dragAndDropPage.dragAndDrop();
+  await dragAndDropPage.checkIsDropped();
+})
