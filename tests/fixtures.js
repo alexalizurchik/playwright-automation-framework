@@ -4,6 +4,7 @@ const { AlertsPage } = require('../pages/AlertsPage');
 const { FramesPage } = require('../pages/FramesPage');
 const { SliderPage } = require('../pages/SliderPage');
 const { ProgressBarPage } = require('../pages/ProgressBarPage');
+const { DragAndDropPage } = require('../pages/DragAndDropPage');
 
 const myTest = base.test.extend({
   textBoxPage: async ({ page }, use) => {
@@ -25,6 +26,10 @@ const myTest = base.test.extend({
     progressBarPage: async({ page }, use) => {
     const progressBarPage = new ProgressBarPage(page);
     await use(progressBarPage);
+  },
+  dragAndDropPage: async({ page }, use) => {
+    const dragAndDropPage = new DragAndDropPage(page);
+    await use(dragAndDropPage);
   }
 });
 
