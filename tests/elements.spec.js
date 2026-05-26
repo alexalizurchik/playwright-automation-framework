@@ -74,3 +74,18 @@ test('Should drag and drop element', async({ page, dragAndDropPage }) => {
   await dragAndDropPage.dragAndDrop();
   await dragAndDropPage.checkIsDropped();
 })
+
+test('Should check button enabling', async({ page, dynamicPage }) => {
+  await dynamicPage.open();
+  await dynamicPage.checkEnableAfterButton();
+})
+
+test('Should check button color change', async({ page, dynamicPage }) => {
+  await dynamicPage.open();
+  await dynamicPage.checkColorChangeButton();
+})
+
+test('Should check button visibility', async({ page, dynamicPage }) => {
+  await dynamicPage.open();
+  await dynamicPage.checkVisibleAfterButton();
+})
