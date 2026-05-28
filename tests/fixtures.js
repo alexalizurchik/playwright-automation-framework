@@ -6,6 +6,7 @@ const { SliderPage } = require('../pages/SliderPage');
 const { ProgressBarPage } = require('../pages/ProgressBarPage');
 const { DragAndDropPage } = require('../pages/DragAndDropPage');
 const { DynamicPage } = require('../pages/DynamicPage');
+const { WindowsPage } = require('../pages/WindowsPage');
 
 const myTest = base.test.extend({
   textBoxPage: async ({ page }, use) => {
@@ -35,6 +36,10 @@ const myTest = base.test.extend({
   dynamicPage: async({ page }, use) => {
     const dynamicPage = new DynamicPage(page);
     await use(dynamicPage);
+  },
+  windowsPage: async({ page }, use) => {
+    const windowsPage = new WindowsPage(page);
+    await use(windowsPage);
   }
 });
 
