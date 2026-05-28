@@ -1,5 +1,6 @@
 // @ts-check
 const { test, expect } = require('./fixtures');
+const { beforeEach } = test;
 
 test('Should show a successfull message after form submiting', async ({ textBoxPage }) => {
   const name = process.env.USER_NAME;
@@ -88,4 +89,35 @@ test('Should check button color change', async({ dynamicPage }) => {
 test('Should check button visibility', async({ dynamicPage }) => {
   await dynamicPage.open();
   await dynamicPage.checkVisibleAfterButton();
+})
+
+test.describe('Browser windows tests', () => {
+  test.beforeEach(async({ windowsPage }) => {
+    await windowsPage.open();
+  })
+
+  const expectedUrl = 'https://demoqa.com/sample';
+  const expectedHeading = 'This is a sample page';
+
+  test('Should open new tab and check url', async({ windowsPage }) => {
+    await windowsPage.checkPopupUrl(windowsPage.newTabButton, expectedUrl);
+  })
+
+  test('Should open new tab and check heading', async({ windowsPage }) => {
+    await windowsPage.checkPopupText(windowsPage.newTabButton, false, expectedHeading);
+  })
+
+  test('Should open new window and check url', async({ windowsPage }) => {
+    await windowsPage.checkPopupUrl(windowsPage.newWindowButton, expectedUrl);
+  })
+
+  test('Should open new window and check heading', async({ windowsPage }) => {
+    await windowsPage.checkPopupText(windowsPage.newWindowButton, false, expectedHeading);
+  })
+
+  test('Should open new window message and check text', async({ windowsPage }) => {
+  const expectedText = 'Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.';
+
+  await windowsPage.checkPopupText(windowsPage.newWindowMessageButton, true, expectedText);
+})
 })
