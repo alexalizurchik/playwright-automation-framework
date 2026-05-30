@@ -121,3 +121,28 @@ test.describe('Browser windows tests', () => {
   await windowsPage.checkPopupText(windowsPage.newWindowMessageButton, true, expectedText);
 })
 })
+
+test.only('Should fill the form and submit it', async({ formsPage }) => {
+  const userData = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    mobileNumber: '1234567890',
+    address: 'someAddress USA',
+    gender: 'Male',
+    dateOfBirth: {
+      day: '15',
+      month: 'May',
+      year: '1990'
+    },
+    subjects: 'Maths',
+    hobbies: ['Sports', 'Reading'],
+    picture: 'test-image.png',
+    state: 'NCR',
+    city: 'Delhi'
+  };
+
+  await formsPage.open();
+  await formsPage.fillForm(userData);
+  await formsPage.checkSubmissionResult(userData);
+})
