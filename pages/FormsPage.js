@@ -120,9 +120,7 @@ class FormsPage {
     }
 
     async checkSubmissionResult(expectedData) {
-        const modal = this.modalContent;
-
-        await expect(modal).toBeVisible();
+        await expect(this.modalContent).toBeVisible();
 
         const expectedValues = [
             `${expectedData.firstName} ${expectedData.lastName}`,
@@ -137,7 +135,7 @@ class FormsPage {
         ];
 
         for (const value of expectedValues) {
-            await expect(modal).toContainText(value);
+            await expect(this.modalContent).toContainText(value);
         }
     }
 }
