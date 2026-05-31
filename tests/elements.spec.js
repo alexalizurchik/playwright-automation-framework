@@ -122,7 +122,7 @@ test.describe('Browser windows tests', () => {
 })
 })
 
-test.only('Should fill the form and submit it', async({ formsPage }) => {
+test('Should fill the form and submit it', async({ formsPage }) => {
   const userData = {
     firstName: 'John',
     lastName: 'Doe',
