@@ -8,6 +8,7 @@ const { DragAndDropPage } = require('../pages/DragAndDropPage');
 const { DynamicPage } = require('../pages/DynamicPage');
 const { WindowsPage } = require('../pages/WindowsPage');
 const { FormsPage } = require('../pages/FormsPage');
+const { WebTablesPage } = require('../pages/WebTablesPage');
 
 const myTest = base.test.extend({
   textBoxPage: async ({ page }, use) => {
@@ -45,6 +46,10 @@ const myTest = base.test.extend({
   formsPage: async({ page }, use) => {
     const formsPage = new FormsPage(page);
     await use(formsPage);
+  },
+  webTablesPage: async({ page }, use) => {
+    const webTablesPage = new WebTablesPage(page);
+    await use(webTablesPage);
   }
 });
 
