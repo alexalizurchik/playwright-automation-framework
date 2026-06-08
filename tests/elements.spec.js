@@ -1,4 +1,5 @@
 // @ts-check
+const { WebTablesPage } = require('../pages/WebTablesPage');
 const { test, expect } = require('./fixtures');
 const { beforeEach } = test;
 
@@ -145,4 +146,42 @@ test('Should fill the form and submit it', async({ formsPage }) => {
   await formsPage.open();
   await formsPage.fillForm(userData);
   await formsPage.checkSubmissionResult(userData);
+})
+
+test.describe('Web tables tests', () => {
+  let userData;
+
+  test.beforeEach(async({ webTablesPage }) => {
+    userData = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      age: 30,
+      salary: 50000,
+      department: 'IT'
+    };
+
+    await webTablesPage.open();
+    await webTablesPage.addNewRecord(userData);
+  });
+
+
+  test('Should add new record to the table and check it', async({ webTablesPage }) => {
+    await webTablesPage.checkNewAddedRecord(userData);
+  })
+
+  test('Should edit an existing record by email', async({ webTablesPage }) => {
+    const updatedData = {
+      firstName: 'Johnny',
+      salary: 60000
+    }
+
+    await webTablesPage.editRecordByAnchor(userData.email, updatedData);
+    await webTablesPage.checkEditedRecord(userData.email, updatedData);
+  })
+
+  test('Should delete record and check it', async({ webTablesPage }) => {
+    await webTablesPage.deleteRecordByAnchor(userData.email);
+    await webTablesPage.checkDeletedRecord(userData.email);
+  })
 })
