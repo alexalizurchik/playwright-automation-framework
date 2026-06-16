@@ -18,14 +18,8 @@ class DynamicPage {
     }
 
     async checkColorChangeButton() {
-        const INITIAL_COLOR = 'rgb(255, 255, 255)';
-        const CHANGED_COLOR = 'rgb(220, 53, 69)';
-
-        const initialColor = await this.colorChangeButton.evaluate((el) => getComputedStyle(el).color);
-        await expect(this.colorChangeButton).toHaveCSS('color', INITIAL_COLOR);
-
-        const changedColor = await this.colorChangeButton.evaluate((el) => getComputedStyle(el).color);
-        await expect(this.colorChangeButton).toHaveCSS('color', CHANGED_COLOR, { timeout: 6000 });
+        await expect(this.colorChangeButton).not.toHaveClass(/text-danger/);
+        await expect(this.colorChangeButton).toHaveClass(/text-danger/, { timeout: 6000 });
     }
 
     async checkVisibleAfterButton() {

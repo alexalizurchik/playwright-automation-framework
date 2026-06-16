@@ -3,9 +3,9 @@ const { expect } = require('@playwright/test');
 class WindowsPage {
     constructor(page) {
         this.page = page;
-        this.newTabButton = page.locator('#tabButton');
-        this.newWindowButton = page.locator('#windowButton');
-        this.newWindowMessageButton = page.locator('#messageWindowButton');
+        this._newTabButton = page.locator('#tabButton');
+        this._newWindowButton = page.locator('#windowButton');
+        this._newWindowMessageButton = page.locator('#messageWindowButton');
         this.sampleHeadingSelector = '#sampleHeading';
         this.messageBodySelector = 'body';
     }
@@ -26,7 +26,7 @@ class WindowsPage {
         return newPage;
     }
 
-    async checkPopupUrl(buttonLocator, expectedUrl) {
+    async _checkPopupUrl(buttonLocator, expectedUrl) {
         const newPage = await this._openPopup(buttonLocator);
         
         try {
@@ -36,7 +36,7 @@ class WindowsPage {
         }
     }
 
-    async checkPopupText(buttonLocator, isMessageWindow = false, expectedText) {
+    async _checkPopupText(buttonLocator, expectedText, { isMessageWindow = false } = {}) {
         const newPage = await this._openPopup(buttonLocator);
 
         try {
@@ -51,6 +51,26 @@ class WindowsPage {
         } finally {
             await newPage.close();
         }
+    }
+
+    async checkNewTabUrl(expectedUrl) {
+        await this._checkPopupUrl(this._newTabButton, expectedUrl);
+    }
+
+    async checkNewTabHeading(expectedHeading) {
+        await this._checkPopupText(this._newTabButton, expectedHeading);
+    }
+
+    async checkNewWindowUrl(expectedUrl) {
+        await this._checkPopupUrl(this._newWindowButton, expectedUrl);
+    }
+
+    async checkNewWindowHeading(expectedHeading) {
+        await this._checkPopupText(this._newWindowButton, expectedHeading);
+    }
+
+    async checkNewWindowMessageText(expectedText) {
+        await this._checkPopupText(this._newWindowMessageButton, expectedText, { isMessageWindow: true });
     }
 }
 
