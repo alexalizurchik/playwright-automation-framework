@@ -17,7 +17,7 @@ class WebTablesPage {
     }
 
     async open() {
-        await this.page.goto('https://demoqa.com/webtables');
+        await this.page.goto('/webtables');
     }
 
     async addNewRecord(userData) {
