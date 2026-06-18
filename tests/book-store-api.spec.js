@@ -1,4 +1,3 @@
-// @ts-check
 const { test, expect } = require('./fixtures');
 
 test.describe('@api Book Store API tests', () => {

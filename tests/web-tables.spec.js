@@ -1,4 +1,3 @@
-// @ts-check
 const { test } = require('./fixtures');
 const { updatedWebTableUser, webTableUser } = require('./test-data');
 

@@ -1,4 +1,3 @@
-// @ts-check
 const { test } = require('./fixtures');
 
 test.describe('@ui Browser windows tests', () => {

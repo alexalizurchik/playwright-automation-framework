@@ -1,4 +1,3 @@
-// @ts-check
 const { test } = require('./fixtures');
 const { practiceFormUser } = require('./test-data');
 
