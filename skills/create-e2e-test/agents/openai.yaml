@@ -1,4 +1,0 @@
-interface:
-  display_name: "Create E2E Test"
-  short_description: "Generate Playwright E2E tests from a user story."
-  default_prompt: "Create positive and negative Playwright E2E tests from this user story."
