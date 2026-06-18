@@ -1,7 +1,7 @@
 ---
-description: Создать Playwright E2E тесты для user story. Использует скилл create-e2e-test.
+description: Generate Playwright E2E tests from a user story. Uses the create-e2e-test skill.
 ---
 
-Создай Playwright E2E тесты для следующей user story, следуя скиллу create-e2e-test:
+Generate Playwright E2E tests for the following user story following the create-e2e-test skill:
 
 $ARGUMENTS
