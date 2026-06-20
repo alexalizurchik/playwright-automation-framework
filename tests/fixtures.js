@@ -10,6 +10,7 @@ const { WindowsPage } = require('../pages/WindowsPage');
 const { FormsPage } = require('../pages/FormsPage');
 const { WebTablesPage } = require('../pages/WebTablesPage');
 const { BookStoreApi } = require('../pages/BookStoreApi');
+const { LinksPage } = require('../pages/LinksPage');
 
 const pageFixtures = {
   textBoxPage: TextBoxPage,
@@ -21,7 +22,8 @@ const pageFixtures = {
   dynamicPage: DynamicPage,
   windowsPage: WindowsPage,
   formsPage: FormsPage,
-  webTablesPage: WebTablesPage
+  webTablesPage: WebTablesPage,
+  linksPage: LinksPage
 };
 
 const createFixture = (PageObject) => async ({ page }, use) => {
