@@ -12,4 +12,16 @@ test.describe('@ui Slider tests', async() => {
     await sliderPage.setSliderRange(secondTargetValue);
     await sliderPage.checkInputValue(secondTargetValue);
   });
+
+  test('@regression Should set slider to minimum value (0)', async({ sliderPage }) => {
+    await sliderPage.open();
+    await sliderPage.setSliderRange(0);
+    await sliderPage.checkInputValue(0);
+  });
+
+  test('@regression Should set slider to mid-range value and verify', async({ sliderPage }) => {
+    await sliderPage.open();
+    await sliderPage.setSliderRange(50);
+    await sliderPage.checkInputValue(50);
+  });
 });

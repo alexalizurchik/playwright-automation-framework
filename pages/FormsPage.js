@@ -119,6 +119,30 @@ class FormsPage {
         await this.submitButton.click();
     }
 
+    async submitWithInvalidEmail(invalidEmail) {
+        await this.firstNameInput.fill('John');
+        await this.lastNameInput.fill('Doe');
+        await this.userEmailInput.fill(invalidEmail);
+        await this.userNumberInput.fill('1234567890');
+        await this.submitButton.click();
+    }
+
+    async submitWithInvalidMobile(mobileNumber) {
+        await this.firstNameInput.fill('John');
+        await this.lastNameInput.fill('Doe');
+        await this.userEmailInput.fill('john@example.com');
+        await this.userNumberInput.fill(mobileNumber);
+        await this.submitButton.click();
+    }
+
+    async submitEmptyForm() {
+        await this.submitButton.click();
+    }
+
+    async checkModalNotVisible() {
+        await expect(this.modalContent).not.toBeVisible();
+    }
+
     async checkSubmissionResult(expectedData) {
         await expect(this.modalContent).toBeVisible();
 

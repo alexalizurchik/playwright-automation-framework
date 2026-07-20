@@ -23,4 +23,17 @@ test.describe('@ui Alerts and Dialogs Tests', async() => {
     await alertsPage.triggerDialog(false);
     await alertsPage.checkConfirmMessage(declineMessage);
   });
+
+  test('@smoke Should handle simple alert (not confirm dialog)', async({ alertsPage }) => {
+    await alertsPage.open();
+    await alertsPage.triggerAlert();
+
+    await alertsPage.checkConfirmMessageNotPresent();
+  });
+
+  test('@regression Should have no confirm message before dialog interaction', async({ alertsPage }) => {
+    await alertsPage.open();
+
+    await alertsPage.checkConfirmMessageNotPresent();
+  });
 })

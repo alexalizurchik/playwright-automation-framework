@@ -20,6 +20,10 @@ class DragAndDropPage {
     async checkIsDropped() {
         await expect(this.droppableElement).toHaveText('Dropped!');
     }
+
+    async checkNotDropped() {
+        await expect(this.droppableElement).toHaveText('Drop Here');
+    }
 }
 
 module.exports = { DragAndDropPage };

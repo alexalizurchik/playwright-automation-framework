@@ -6,4 +6,9 @@ test.describe('@ui Drag and Drop', async() => {
     await dragAndDropPage.dragAndDrop();
     await dragAndDropPage.checkIsDropped();
   });
+
+  test('@regression Should not show dropped message before drag action', async({ dragAndDropPage }) => {
+    await dragAndDropPage.open();
+    await dragAndDropPage.checkNotDropped();
+  });
 })

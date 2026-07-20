@@ -26,6 +26,17 @@ class TextBoxPage {
         await expect(this.outputBlock).toBeVisible(); 
         await expect(this.outputBlock).toContainText(text);
     }
+
+    async checkOutputBlockNotVisible() {
+        await expect(this.outputBlock).toBeHidden();
+    }
+
+    async fillFormWithInvalidEmail(name, address) {
+        await this.fullNameInput.fill(name);
+        await this.emailInput.fill('invalid-email');
+        await this.currentAddressInput.fill(address);
+        await this.submitButton.click();
+    }
 }
 
 module.exports = { TextBoxPage };
