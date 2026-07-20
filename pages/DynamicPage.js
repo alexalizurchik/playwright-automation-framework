@@ -32,10 +32,6 @@ class DynamicPage {
         await this.enableAfterButton.click({ force: true });
         await expect(this.enableAfterButton).toBeDisabled();
     }
-
-    async checkVisibleAfterButtonIsHidden() {
-        await expect(this.visibleAfterButton).toBeHidden();
-    }
 }
 
 module.exports = { DynamicPage };

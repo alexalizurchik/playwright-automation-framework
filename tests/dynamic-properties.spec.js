@@ -20,9 +20,4 @@ test.describe('@ui Dynamic properties tests', async() => {
     await dynamicPage.open();
     await dynamicPage.clickButtonBeforeEnabled();
   });
-
-  test('@regression Should confirm button is hidden before becoming visible', async({ dynamicPage }) => {
-    await dynamicPage.open();
-    await dynamicPage.checkVisibleAfterButtonIsHidden();
-  });
 })

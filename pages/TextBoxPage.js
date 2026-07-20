@@ -14,10 +14,10 @@ class TextBoxPage {
         await this.page.goto('/text-box');
     }
 
-    async fillForm(name, email, address) {
-        await this.fullNameInput.fill(name);
-        await this.emailInput.fill(email);
-        await this.currentAddressInput.fill(address);
+    async fillForm(userData) {
+        await this.fullNameInput.fill(`${userData.firstName} ${userData.lastName}`);
+        await this.emailInput.fill(userData.email);
+        await this.currentAddressInput.fill(userData.address);
             
         await this.submitButton.click();
     }
@@ -31,12 +31,6 @@ class TextBoxPage {
         await expect(this.outputBlock).toBeHidden();
     }
 
-    async fillFormWithInvalidEmail(name, address) {
-        await this.fullNameInput.fill(name);
-        await this.emailInput.fill('invalid-email');
-        await this.currentAddressInput.fill(address);
-        await this.submitButton.click();
-    }
 }
 
 module.exports = { TextBoxPage };

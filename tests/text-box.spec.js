@@ -1,17 +1,17 @@
 const { test } = require('./fixtures');
-const { textBoxUser } = require('./test-data');
+const { textBoxUser, formInvalidEmail } = require('./test-data');
 
 test.describe('@ui Text box tests', async() => {
   test('@regression Should show a successful message after form submitting', async ({ textBoxPage }) => {
     await textBoxPage.open();
-    await textBoxPage.fillForm(textBoxUser.name, textBoxUser.email, textBoxUser.address);
+    await textBoxPage.fillForm(textBoxUser);
 
-    await textBoxPage.checkOutputBlockText(textBoxUser.name);
+    await textBoxPage.checkOutputBlockText(`${textBoxUser.firstName} ${textBoxUser.lastName}`);
   });
 
   test('@smoke Should not submit form with invalid email', async ({ textBoxPage }) => {
     await textBoxPage.open();
-    await textBoxPage.fillFormWithInvalidEmail('John Doe', 'Some address');
+    await textBoxPage.fillForm(formInvalidEmail);
 
     await textBoxPage.checkOutputBlockNotVisible();
   });

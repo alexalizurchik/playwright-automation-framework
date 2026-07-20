@@ -1,5 +1,6 @@
 const textBoxUser = {
-  name: process.env.USER_NAME || 'John Doe',
+  firstName: 'John',
+  lastName: 'Doe',
   email: process.env.USER_EMAIL || 'john.doe@example.com',
   address: process.env.USER_ADDRESS || '221B Baker Street'
 };
@@ -37,9 +38,34 @@ const updatedWebTableUser = {
   salary: 60000
 };
 
+const invalidUser = {
+  userName: 'nonexistent_user',
+  password: 'WrongPassword!'
+};
+
+const formInvalidEmail = {
+  ...practiceFormUser,
+  email: 'not-an-email'
+};
+
+const formInvalidMobile = {
+  ...practiceFormUser,
+  mobileNumber: '123456789'
+};
+
+const nonExistentIsbn = '0000000000';
+const fakeUserId = '00000000-0000-0000-0000-000000000000';
+const emptyToken = '';
+
 module.exports = {
   textBoxUser,
   practiceFormUser,
   webTableUser,
-  updatedWebTableUser
+  updatedWebTableUser,
+  invalidUser,
+  formInvalidEmail,
+  formInvalidMobile,
+  nonExistentIsbn,
+  fakeUserId,
+  emptyToken
 };

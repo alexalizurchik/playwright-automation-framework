@@ -1,5 +1,5 @@
 const { test } = require('./fixtures');
-const { practiceFormUser } = require('./test-data');
+const { practiceFormUser, formInvalidEmail, formInvalidMobile } = require('./test-data');
 
 test.describe('@ui Practice Form tests', async() => {
   test('@smoke Should fill the form and submit it', async({ formsPage }) => {
@@ -10,14 +10,16 @@ test.describe('@ui Practice Form tests', async() => {
 
   test('@smoke Should not submit form with invalid email', async({ formsPage }) => {
     await formsPage.open();
-    await formsPage.submitWithInvalidEmail('not-an-email');
+    await formsPage.fillBaseInfo(formInvalidEmail);
+    await formsPage.clickSubmit();
 
     await formsPage.checkModalNotVisible();
   });
 
   test('@regression Should not submit form with 9-digit mobile number', async({ formsPage }) => {
     await formsPage.open();
-    await formsPage.submitWithInvalidMobile('123456789');
+    await formsPage.fillBaseInfo(formInvalidMobile);
+    await formsPage.clickSubmit();
 
     await formsPage.checkModalNotVisible();
   });
