@@ -87,7 +87,7 @@ class FormsPage {
     }
 
     async uploadPicture(fileName) {
-        const filePath = path.resolve(__dirname, `../fixtures/${fileName}`);
+        const filePath = path.resolve(__dirname, `../test-assets/${fileName}`);
 
         await this.uploadPictureInput.setInputFiles(filePath);
     }

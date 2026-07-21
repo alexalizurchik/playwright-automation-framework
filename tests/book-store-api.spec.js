@@ -1,4 +1,4 @@
-const { test, expect } = require('./fixtures');
+const { test, expect } = require('../fixtures');
 const { invalidUser, nonExistentIsbn, fakeUserId, emptyToken } = require('./test-data');
 
 test.describe('@api Book Store API tests', () => {

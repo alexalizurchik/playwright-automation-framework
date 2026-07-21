@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Dynamic properties tests', async() => {
   test('@regression Should check button enabling', async({ dynamicPage }) => {

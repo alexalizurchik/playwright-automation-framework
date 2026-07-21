@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 const { practiceFormUser, formInvalidEmail, formInvalidMobile } = require('./test-data');
 
 test.describe('@ui Practice Form tests', async() => {

@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Drag and Drop', async() => {
   test('@regression Should drag and drop element', async({ dragAndDropPage }) => {
