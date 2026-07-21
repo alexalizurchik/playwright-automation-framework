@@ -98,6 +98,11 @@ class WebTablesPage {
     async checkDeletedRecord(rowAnchor) {
         await expect(this.table).not.toContainText(rowAnchor);
     }
+
+    async checkDeleteButtonNotPresent(rowAnchor) {
+        const deleteButton = this.tableRows.filter({ hasText: rowAnchor }).locator('[id^="delete-record-"]');
+        await expect(deleteButton).toHaveCount(0);
+    }
 }
 
 module.exports = { WebTablesPage };

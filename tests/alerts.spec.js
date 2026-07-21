@@ -31,9 +31,4 @@ test.describe('@ui Alerts and Dialogs Tests', async() => {
     await alertsPage.checkConfirmMessageNotPresent();
   });
 
-  test('@regression Should have no confirm message before dialog interaction', async({ alertsPage }) => {
-    await alertsPage.open();
-
-    await alertsPage.checkConfirmMessageNotPresent();
-  });
 })

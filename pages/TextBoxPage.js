@@ -14,12 +14,16 @@ class TextBoxPage {
         await this.page.goto('/text-box');
     }
 
+    async clickSubmit() {
+        await this.submitButton.click();
+    }
+
     async fillForm(userData) {
         await this.fullNameInput.fill(`${userData.firstName} ${userData.lastName}`);
         await this.emailInput.fill(userData.email);
         await this.currentAddressInput.fill(userData.address);
-            
-        await this.submitButton.click();
+
+        await this.clickSubmit();
     }
 
     async checkOutputBlockText(text) {

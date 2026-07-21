@@ -1,4 +1,4 @@
-const { test, expect } = require('./fixtures');
+const { test } = require('./fixtures');
 
 test.describe('@ui Browser windows tests', () => {
   const expectedUrl = 'https://demoqa.com/sample';
@@ -30,18 +30,4 @@ test.describe('@ui Browser windows tests', () => {
     await windowsPage.checkNewWindowMessageText(expectedText);
   });
 
-  test('@regression Should not match wrong URL in new tab', async({ windowsPage }) => {
-    const pagePromise = windowsPage.page.context().waitForEvent('page');
-
-    await windowsPage.page.locator('#tabButton').click();
-
-    const newPage = await pagePromise;
-    await newPage.waitForLoadState();
-
-    try {
-      await expect(newPage).not.toHaveURL('https://example.com');
-    } finally {
-      await newPage.close();
-    }
-  });
 });

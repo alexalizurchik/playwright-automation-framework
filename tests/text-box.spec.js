@@ -18,7 +18,7 @@ test.describe('@ui Text box tests', async() => {
 
   test('@smoke Should not submit empty form', async ({ textBoxPage }) => {
     await textBoxPage.open();
-    await textBoxPage.submitButton.click();
+    await textBoxPage.clickSubmit();
 
     await textBoxPage.checkOutputBlockNotVisible();
   });
