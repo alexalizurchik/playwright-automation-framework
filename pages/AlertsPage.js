@@ -24,8 +24,20 @@ class AlertsPage {
         await this.confirmButton.click();
     }
 
+    async triggerAlert() {
+        this.page.once('dialog', dialog => {
+            dialog.accept();
+        })
+
+        await this.alertButton.click();
+    }
+
     async checkConfirmMessage(message) {
         await expect(this.confirmMessage).toContainText(message);
+    }
+
+    async checkConfirmMessageNotPresent() {
+        await expect(this.confirmMessage).toBeHidden();
     }
 }
 

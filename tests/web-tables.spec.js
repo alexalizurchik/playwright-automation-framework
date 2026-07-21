@@ -20,8 +20,9 @@ test.describe('@ui Web tables tests', () => {
     await webTablesPage.checkEditedRecord(userData.email, updatedWebTableUser);
   });
 
-  test('@regression Should delete record and check it', async({ webTablesPage }) => {
+  test('@regression Should delete record and verify it is removed', async({ webTablesPage }) => {
     await webTablesPage.deleteRecordByAnchor(userData.email);
     await webTablesPage.checkDeletedRecord(userData.email);
+    await webTablesPage.checkDeleteButtonNotPresent(userData.email);
   });
 });

@@ -29,4 +29,5 @@ test.describe('@ui Browser windows tests', () => {
 
     await windowsPage.checkNewWindowMessageText(expectedText);
   });
+
 });

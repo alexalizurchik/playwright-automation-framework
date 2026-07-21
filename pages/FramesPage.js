@@ -4,7 +4,6 @@ class FramesPage {
     constructor(page) {
         this.page = page;
         this.bigFrame = page.frameLocator('#frame1');
-        this.smallFrame = page.frameLocator('#frame2');
         this.frameHeading = 'h1#sampleHeading';
         this.parentFrame = page.frameLocator('#frame1');
         this.childFrame = this.parentFrame.frameLocator('iframe');
@@ -20,6 +19,10 @@ class FramesPage {
 
     async checkChildFrameHeading(text) {
         await expect(this.childFrame.locator('p')).toHaveText(text);
+    }
+
+    async checkChildFrameIsHidden() {
+        await expect(this.childFrame.locator('p')).toBeHidden();
     }
 }
 

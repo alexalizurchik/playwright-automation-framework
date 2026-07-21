@@ -9,15 +9,16 @@ class DragAndDropPage {
 
     async open() {
         await this.page.goto('/droppable');
+        await this.page.waitForFunction(
+            () => document.querySelector('#draggable')?.classList.contains('ui-draggable')
+        );
     }
 
     async dragAndDrop() {
-        await expect(this.draggableElement).toHaveClass(/draggable/);
+        await expect(this.droppableElement).toHaveText('Drop Here');
 
         await this.draggableElement.dragTo(this.droppableElement);
-    }
 
-    async checkIsDropped() {
         await expect(this.droppableElement).toHaveText('Dropped!');
     }
 }

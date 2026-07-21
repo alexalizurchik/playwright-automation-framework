@@ -26,6 +26,12 @@ class DynamicPage {
         await expect(this.visibleAfterButton).toBeHidden();
         await expect(this.visibleAfterButton).toBeVisible({ timeout: 6000 });
     }
+
+    async clickButtonBeforeEnabled() {
+        await expect(this.enableAfterButton).toBeDisabled();
+        await this.enableAfterButton.click({ force: true });
+        await expect(this.enableAfterButton).toBeDisabled();
+    }
 }
 
 module.exports = { DynamicPage };

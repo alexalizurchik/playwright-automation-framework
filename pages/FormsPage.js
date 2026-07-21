@@ -39,12 +39,18 @@ class FormsPage {
         await this.page.goto('/automation-practice-form');
     }
 
-    async fillBaseInfo(firstName, lastName, email, mobileNumber, address) {
-        await this.firstNameInput.fill(firstName);
-        await this.lastNameInput.fill(lastName);
-        await this.userEmailInput.fill(email);
-        await this.userNumberInput.fill(mobileNumber);
-        await this.currentAddressInput.fill(address);
+    async fillBaseInfo(userData) {
+        await this.firstNameInput.fill(userData.firstName);
+        await this.lastNameInput.fill(userData.lastName);
+        await this.userEmailInput.fill(userData.email);
+        await this.userNumberInput.fill(userData.mobileNumber);
+        if (userData.address) {
+            await this.currentAddressInput.fill(userData.address);
+        }
+    }
+
+    async clickSubmit() {
+        await this.submitButton.click();
     }
 
     async selectGender(gender) {
@@ -105,7 +111,7 @@ class FormsPage {
     }
 
     async fillForm(userData) {
-        await this.fillBaseInfo(userData.firstName, userData.lastName, userData.email, userData.mobileNumber, userData.address);
+        await this.fillBaseInfo(userData);
         await this.selectGender(userData.gender);
         await this.selectDateOfBirth(userData.dateOfBirth);
         await this.selectSubjects(userData.subjects);
@@ -116,7 +122,15 @@ class FormsPage {
         }
 
         await this.selectStateAndCity(userData.state, userData.city);
-        await this.submitButton.click();
+        await this.clickSubmit();
+    }
+
+    async submitEmptyForm() {
+        await this.clickSubmit();
+    }
+
+    async checkModalNotVisible() {
+        await expect(this.modalContent).not.toBeVisible();
     }
 
     async checkSubmissionResult(expectedData) {

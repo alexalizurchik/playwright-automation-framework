@@ -14,4 +14,9 @@ test.describe('@ui Frames tests', async() => {
     await framesPage.open('/nestedframes');
     await framesPage.checkChildFrameHeading(expectedHeading);
   });
+
+  test('@regression Should not find child frame without navigating to nested frames', async({ framesPage }) => {
+    await framesPage.open();
+    await framesPage.checkChildFrameIsHidden();
+  });
 });

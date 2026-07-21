@@ -14,18 +14,27 @@ class TextBoxPage {
         await this.page.goto('/text-box');
     }
 
-    async fillForm(name, email, address) {
-        await this.fullNameInput.fill(name);
-        await this.emailInput.fill(email);
-        await this.currentAddressInput.fill(address);
-            
+    async clickSubmit() {
         await this.submitButton.click();
+    }
+
+    async fillForm(userData) {
+        await this.fullNameInput.fill(`${userData.firstName} ${userData.lastName}`);
+        await this.emailInput.fill(userData.email);
+        await this.currentAddressInput.fill(userData.address);
+
+        await this.clickSubmit();
     }
 
     async checkOutputBlockText(text) {
         await expect(this.outputBlock).toBeVisible(); 
         await expect(this.outputBlock).toContainText(text);
     }
+
+    async checkOutputBlockNotVisible() {
+        await expect(this.outputBlock).toBeHidden();
+    }
+
 }
 
 module.exports = { TextBoxPage };

@@ -8,4 +8,9 @@ test.describe('@ui Progress bar tests', async() => {
     await progressBarPage.resetProgress();
     await progressBarPage.checkIsReset();
   });
+
+  test('@regression Should not reset progress bar before starting', async({ progressBarPage }) => {
+    await progressBarPage.open();
+    await progressBarPage.checkIsReset();
+  });
 });

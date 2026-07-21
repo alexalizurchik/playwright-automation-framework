@@ -50,6 +50,10 @@ class BookStoreApi {
             headers: this.getAuthHeaders(token)
         });
     }
+
+    async getBookByIsbn(isbn) {
+        return this.request.get(`/BookStore/v1/Book?ISBN=${isbn}`);
+    }
 } 
 
 module.exports = { BookStoreApi };

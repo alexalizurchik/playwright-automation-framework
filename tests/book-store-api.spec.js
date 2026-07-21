@@ -1,4 +1,5 @@
 const { test, expect } = require('./fixtures');
+const { invalidUser, nonExistentIsbn, fakeUserId, emptyToken } = require('./test-data');
 
 test.describe('@api Book Store API tests', () => {
   test('@smoke Should authorise user successfully', async({ authorizedUser }) => {
@@ -38,5 +39,31 @@ test.describe('@api Book Store API tests', () => {
     const response = await authorizedUser.deleteBookFromCollection(firstBookIsbn);
 
     expect(response.status()).toBe(204);
+  });
+
+  test('@smoke Should not authorise with wrong password', async({ bookStoreApi }) => {
+    const response = await bookStoreApi.generateToken(invalidUser);
+
+    expect(response.status()).toBe(200);
+
+    const body = await response.json();
+    expect(body.status).toBe('Failed');
+    expect(body.token).toBeNull();
+  });
+
+  test('@regression Should not add book without authorisation', async({ bookStoreApi, firstBookIsbn }) => {
+    const response = await bookStoreApi.addBookToCollection(
+      fakeUserId,
+      firstBookIsbn,
+      emptyToken
+    );
+
+    expect(response.status()).toBe(401);
+  });
+
+  test('@regression Should return 400 for non-existent ISBN', async({ bookStoreApi }) => {
+    const response = await bookStoreApi.getBookByIsbn(nonExistentIsbn);
+
+    expect(response.status()).toBe(400);
   });
 });
