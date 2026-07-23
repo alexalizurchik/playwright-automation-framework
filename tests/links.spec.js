@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Links page tests', () => {
   test.beforeEach(async({ linksPage }) => {

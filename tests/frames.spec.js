@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Frames tests', async() => {
   test('@regression Should check a frame heading', async({ framesPage }) => {

@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Slider tests', async() => {
   test('@regression Should move slider to the value', async({ sliderPage }) => {

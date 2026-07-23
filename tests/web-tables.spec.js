@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 const { updatedWebTableUser, webTableUser } = require('./test-data');
 
 test.describe('@ui Web tables tests', () => {

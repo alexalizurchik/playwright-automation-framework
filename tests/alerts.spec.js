@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Alerts and Dialogs Tests', async() => {
   test('@smoke Should show a confirm message after dialog confirmation', async({ alertsPage }) => {

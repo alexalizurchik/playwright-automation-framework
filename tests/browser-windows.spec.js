@@ -1,4 +1,4 @@
-const { test } = require('./fixtures');
+const { test } = require('../fixtures');
 
 test.describe('@ui Browser windows tests', () => {
   const expectedUrl = 'https://demoqa.com/sample';

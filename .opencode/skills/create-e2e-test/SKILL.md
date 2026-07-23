@@ -30,7 +30,7 @@ The expected output is usually:
 
 2. **Inspect the project**
    - Read `playwright.config.js` to find `baseURL`.
-   - Read `tests/fixtures.js`, existing `pages/*Page.js`, `tests/*.spec.js`, and `tests/test-data.js`.
+   - Read `fixtures/index.js`, existing `pages/*Page.js`, `tests/*.spec.js`, and `tests/test-data.js`.
    - Follow existing CommonJS style: `require(...)`, `module.exports`, JS files.
    - Preserve current fixture and Page Object conventions.
 
@@ -43,7 +43,7 @@ The expected output is usually:
 4. **Find or create the Page Object**
    - If a relevant class already exists, extend it.
    - If not, create a new class in `pages/<Feature>Page.js`.
-   - Add a fixture in `tests/fixtures.js` for a new Page Object.
+   - Add a fixture in `fixtures/index.js` for a new Page Object.
    - Keep locators inside the Page Object. Tests should not access page internals like button locators directly.
 
 5. **Model behavior at the right level**
@@ -82,7 +82,7 @@ The expected output is usually:
 - Put Page Objects in `pages/`.
 - Put specs in `tests/`.
 - Put shared data in `tests/test-data.js`.
-- Register every new Page Object fixture in `tests/fixtures.js`.
+- Register every new Page Object fixture in `fixtures/index.js`.
 - Use `baseURL` from `playwright.config.js`; do not hardcode the host in Page Objects.
 - Keep screenshots/videos/traces controlled by Playwright config, not ad hoc code.
 - Do not add a generic framework abstraction unless it removes real duplication.
@@ -101,7 +101,7 @@ Before finishing:
 
 - Base directory for this skill: `/Users/alexandrina/Documents/projects/playwright-automation-framework`
 - Existing Page Objects: `pages/*Page.js`
-- Existing test fixtures: `tests/fixtures.js`
+- Existing test fixtures: `fixtures/index.js`
 - Existing test specs: `tests/*.spec.js`
 - Existing test data: `tests/test-data.js`
 - Playwright config: `playwright.config.js`
