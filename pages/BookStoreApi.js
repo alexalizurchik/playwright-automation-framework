@@ -6,7 +6,7 @@ class BookStoreApi {
     getAuthHeaders(token) {
         return {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         };
     }
 
@@ -14,9 +14,9 @@ class BookStoreApi {
         return this.request.post('/Account/v1/User', {
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json'
+                Accept: 'application/json',
             },
-            data: credentials
+            data: credentials,
         });
     }
 
@@ -33,27 +33,27 @@ class BookStoreApi {
             headers: this.getAuthHeaders(token),
             data: {
                 userId,
-                collectionOfIsbns: [{ isbn }]
-            }
+                collectionOfIsbns: [{ isbn }],
+            },
         });
     }
 
     async deleteBookFromCollection(userId, isbn, token) {
         return this.request.delete('/BookStore/v1/Book', {
             headers: this.getAuthHeaders(token),
-            data: { isbn, userId }
+            data: { isbn, userId },
         });
     }
 
     async deleteUser(userId, token) {
         return this.request.delete(`/Account/v1/User/${userId}`, {
-            headers: this.getAuthHeaders(token)
+            headers: this.getAuthHeaders(token),
         });
     }
 
     async getBookByIsbn(isbn) {
         return this.request.get(`/BookStore/v1/Book?ISBN=${isbn}`);
     }
-} 
+}
 
 module.exports = { BookStoreApi };

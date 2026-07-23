@@ -26,8 +26,8 @@ class SliderPage {
             }
 
             currentValue = Number(await this.slider.inputValue());
-            
-            if (currentValue === target) break; 
+
+            if (currentValue === target) break;
         }
     }
 

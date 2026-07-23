@@ -6,7 +6,7 @@ class TextBoxPage {
         this.fullNameInput = page.getByPlaceholder('Full Name');
         this.emailInput = page.getByPlaceholder('name@example.com');
         this.currentAddressInput = page.getByPlaceholder('Current Address');
-        this.submitButton = page.getByRole('button', {name: 'Submit'});
+        this.submitButton = page.getByRole('button', { name: 'Submit' });
         this.outputBlock = page.locator('#output');
     }
 
@@ -27,14 +27,13 @@ class TextBoxPage {
     }
 
     async checkOutputBlockText(text) {
-        await expect(this.outputBlock).toBeVisible(); 
+        await expect(this.outputBlock).toBeVisible();
         await expect(this.outputBlock).toContainText(text);
     }
 
     async checkOutputBlockNotVisible() {
         await expect(this.outputBlock).toBeHidden();
     }
-
 }
 
 module.exports = { TextBoxPage };

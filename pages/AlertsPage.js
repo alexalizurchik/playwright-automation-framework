@@ -13,21 +13,21 @@ class AlertsPage {
     }
 
     async triggerDialog(shouldAccept = true, expectedText) {
-        this.page.once('dialog', dialog => {
+        this.page.once('dialog', (dialog) => {
             if (expectedText) {
                 expect(dialog.message()).toBe(expectedText);
             }
 
             shouldAccept ? dialog.accept() : dialog.dismiss();
-        })
+        });
 
         await this.confirmButton.click();
     }
 
     async triggerAlert() {
-        this.page.once('dialog', dialog => {
+        this.page.once('dialog', (dialog) => {
             dialog.accept();
-        })
+        });
 
         await this.alertButton.click();
     }

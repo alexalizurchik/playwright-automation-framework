@@ -5,7 +5,7 @@ class DynamicPage {
         this.page = page;
         this.enableAfterButton = this.page.locator('#enableAfter');
         this.colorChangeButton = this.page.locator('#colorChange');
-        this.visibleAfterButton = this.page.locator('#visibleAfter'); 
+        this.visibleAfterButton = this.page.locator('#visibleAfter');
     }
 
     async open() {

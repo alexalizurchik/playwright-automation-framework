@@ -52,16 +52,16 @@ npm test
 
 ## 🛠️ Commands
 
-| Command | Description |
-|---|---|
-| `npm test` | Runs all tests in headless mode |
-| `npm run test:headed` | Runs tests with visible browser windows |
-| `npm run test:ui-mode` | Opens Playwright Interactive UI Mode |
-| `npm run test:smoke` | Runs only @smoke tagged tests |
-| `npm run test:regression` | Runs only @regression tagged tests |
-| `npm run test:ui` | Runs frontend UI tests |
-| `npm run test:api` | Runs backend API tests |
-| `npm run report` | Serves and opens the generated HTML test report |
+| Command                   | Description                                     |
+| ------------------------- | ----------------------------------------------- |
+| `npm test`                | Runs all tests in headless mode                 |
+| `npm run test:headed`     | Runs tests with visible browser windows         |
+| `npm run test:ui-mode`    | Opens Playwright Interactive UI Mode            |
+| `npm run test:smoke`      | Runs only @smoke tagged tests                   |
+| `npm run test:regression` | Runs only @regression tagged tests              |
+| `npm run test:ui`         | Runs frontend UI tests                          |
+| `npm run test:api`        | Runs backend API tests                          |
+| `npm run report`          | Serves and opens the generated HTML test report |
 
 ## 🏗️ Architecture
 

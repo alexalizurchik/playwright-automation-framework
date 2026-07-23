@@ -7,7 +7,7 @@ class FramesPage {
         this.frameHeading = 'h1#sampleHeading';
         this.parentFrame = page.frameLocator('#frame1');
         this.childFrame = this.parentFrame.frameLocator('iframe');
-    } 
+    }
 
     async open(path = '/frames') {
         await this.page.goto(path);

@@ -16,19 +16,19 @@ class WindowsPage {
 
     async _openPopup(buttonLocator) {
         const pagePromise = this.page.context().waitForEvent('page');
-        
+
         await buttonLocator.click();
 
         const newPage = await pagePromise;
-        
+
         await newPage.waitForLoadState();
-        
+
         return newPage;
     }
 
     async _checkPopupUrl(buttonLocator, expectedUrl) {
         const newPage = await this._openPopup(buttonLocator);
-        
+
         try {
             await expect(newPage).toHaveURL(expectedUrl);
         } finally {
@@ -40,13 +40,15 @@ class WindowsPage {
         const newPage = await this._openPopup(buttonLocator);
 
         try {
-            const selector = isMessageWindow ? this.messageBodySelector : this.sampleHeadingSelector;
+            const selector = isMessageWindow
+                ? this.messageBodySelector
+                : this.sampleHeadingSelector;
             const element = newPage.locator(selector);
 
             if (!isMessageWindow) {
                 await element.waitFor({ state: 'visible' });
             }
-            
+
             await expect(element).toHaveText(expectedText);
         } finally {
             await newPage.close();
@@ -70,7 +72,9 @@ class WindowsPage {
     }
 
     async checkNewWindowMessageText(expectedText) {
-        await this._checkPopupText(this._newWindowMessageButton, expectedText, { isMessageWindow: true });
+        await this._checkPopupText(this._newWindowMessageButton, expectedText, {
+            isMessageWindow: true,
+        });
     }
 }
 
