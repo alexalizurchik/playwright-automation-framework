@@ -11,7 +11,7 @@ class WebTablesPage {
         this.salaryInput = page.locator('#salary');
         this.departmentInput = page.locator('#department');
         this.submitButton = page.locator('#submit');
-        this.table = page.locator('table')
+        this.table = page.locator('table');
         this.tableRows = this.table.locator('tbody tr');
         this.modalContent = page.locator('.modal-content');
     }
@@ -39,11 +39,11 @@ class WebTablesPage {
             userData.email,
             userData.age.toString(),
             userData.salary.toString(),
-            userData.department
+            userData.department,
         ];
         const lastTableRow = this.tableRows.last();
 
-        for(const value of expectedValues) {
+        for (const value of expectedValues) {
             await expect(lastTableRow).toContainText(value);
         }
     }
@@ -60,11 +60,11 @@ class WebTablesPage {
             email: this.userEmailInput,
             age: this.ageInput,
             salary: this.salaryInput,
-            department: this.departmentInput
-        }
+            department: this.departmentInput,
+        };
 
-        for(const [key, value] of Object.entries(updatedData)) {
-            if(inputFields[key] && value !== undefined) {
+        for (const [key, value] of Object.entries(updatedData)) {
+            if (inputFields[key] && value !== undefined) {
                 await inputFields[key].clear();
                 await inputFields[key].fill(value.toString());
             }
@@ -80,10 +80,10 @@ class WebTablesPage {
         await expect(editedRow).toBeVisible();
 
         const expectedValues = Object.values(updatedData)
-            .filter(value => value !== undefined && value !== null)
-            .map(value => value.toString());
+            .filter((value) => value !== undefined && value !== null)
+            .map((value) => value.toString());
 
-        for(const value of expectedValues) {
+        for (const value of expectedValues) {
             await expect(editedRow).toContainText(value);
         }
     }
@@ -100,7 +100,9 @@ class WebTablesPage {
     }
 
     async checkDeleteButtonNotPresent(rowAnchor) {
-        const deleteButton = this.tableRows.filter({ hasText: rowAnchor }).locator('[id^="delete-record-"]');
+        const deleteButton = this.tableRows
+            .filter({ hasText: rowAnchor })
+            .locator('[id^="delete-record-"]');
         await expect(deleteButton).toHaveCount(0);
     }
 }

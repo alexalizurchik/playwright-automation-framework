@@ -2,68 +2,71 @@ const { test, expect } = require('../fixtures');
 const { invalidUser, nonExistentIsbn, fakeUserId, emptyToken } = require('./test-data');
 
 test.describe('@api Book Store API tests', () => {
-  test('@smoke Should authorise user successfully', async({ authorizedUser }) => {
-    const response = await authorizedUser.generateToken();
+    test('@smoke Should authorise user successfully', async ({ authorizedUser }) => {
+        const response = await authorizedUser.generateToken();
 
-    expect(response.status()).toBe(200);
+        expect(response.status()).toBe(200);
 
-    const body = await response.json();
-    expect(body.status).toBe('Success');
-    expect(body.token).toBeDefined();
-  });
+        const body = await response.json();
+        expect(body.status).toBe('Success');
+        expect(body.token).toBeDefined();
+    });
 
-  test('@smoke Get all books', async({ bookStoreApi }) => {
-    const response = await bookStoreApi.getAllBooks();
+    test('@smoke Get all books', async ({ bookStoreApi }) => {
+        const response = await bookStoreApi.getAllBooks();
 
-    expect(response.status()).toBe(200);
+        expect(response.status()).toBe(200);
 
-    const body = await response.json();
+        const body = await response.json();
 
-    expect(Array.isArray(body.books)).toBeTruthy();
-    expect(body.books.length).toBeGreaterThan(0);
-  });
+        expect(Array.isArray(body.books)).toBeTruthy();
+        expect(body.books.length).toBeGreaterThan(0);
+    });
 
-  test('@regression Add book to collection', async({ authorizedUser, firstBookIsbn }) => {
-    const response = await authorizedUser.addBookToCollection(firstBookIsbn);
+    test('@regression Add book to collection', async ({ authorizedUser, firstBookIsbn }) => {
+        const response = await authorizedUser.addBookToCollection(firstBookIsbn);
 
-    expect(response.status()).toBe(201);
+        expect(response.status()).toBe(201);
 
-    const body = await response.json();
+        const body = await response.json();
 
-    expect(body.books[0].isbn).toBe(firstBookIsbn);
-  });
+        expect(body.books[0].isbn).toBe(firstBookIsbn);
+    });
 
-  test('@regression Delete book from collection', async({ authorizedUser, firstBookIsbn }) => {
-    await authorizedUser.addBookToCollection(firstBookIsbn);
+    test('@regression Delete book from collection', async ({ authorizedUser, firstBookIsbn }) => {
+        await authorizedUser.addBookToCollection(firstBookIsbn);
 
-    const response = await authorizedUser.deleteBookFromCollection(firstBookIsbn);
+        const response = await authorizedUser.deleteBookFromCollection(firstBookIsbn);
 
-    expect(response.status()).toBe(204);
-  });
+        expect(response.status()).toBe(204);
+    });
 
-  test('@smoke Should not authorise with wrong password', async({ bookStoreApi }) => {
-    const response = await bookStoreApi.generateToken(invalidUser);
+    test('@smoke Should not authorise with wrong password', async ({ bookStoreApi }) => {
+        const response = await bookStoreApi.generateToken(invalidUser);
 
-    expect(response.status()).toBe(200);
+        expect(response.status()).toBe(200);
 
-    const body = await response.json();
-    expect(body.status).toBe('Failed');
-    expect(body.token).toBeNull();
-  });
+        const body = await response.json();
+        expect(body.status).toBe('Failed');
+        expect(body.token).toBeNull();
+    });
 
-  test('@regression Should not add book without authorisation', async({ bookStoreApi, firstBookIsbn }) => {
-    const response = await bookStoreApi.addBookToCollection(
-      fakeUserId,
-      firstBookIsbn,
-      emptyToken
-    );
+    test('@regression Should not add book without authorisation', async ({
+        bookStoreApi,
+        firstBookIsbn,
+    }) => {
+        const response = await bookStoreApi.addBookToCollection(
+            fakeUserId,
+            firstBookIsbn,
+            emptyToken,
+        );
 
-    expect(response.status()).toBe(401);
-  });
+        expect(response.status()).toBe(401);
+    });
 
-  test('@regression Should return 400 for non-existent ISBN', async({ bookStoreApi }) => {
-    const response = await bookStoreApi.getBookByIsbn(nonExistentIsbn);
+    test('@regression Should return 400 for non-existent ISBN', async ({ bookStoreApi }) => {
+        const response = await bookStoreApi.getBookByIsbn(nonExistentIsbn);
 
-    expect(response.status()).toBe(400);
-  });
+        expect(response.status()).toBe(400);
+    });
 });

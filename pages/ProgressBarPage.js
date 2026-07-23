@@ -24,11 +24,10 @@ class ProgressBarPage {
         await expect(this.progressBar).toHaveText('100%', { timeout: 20000 });
     }
 
-     async checkIsReset() {
+    async checkIsReset() {
         const value = await this.progressBar.getAttribute('aria-valuenow');
         expect(value).toBe('0');
     }
-
 }
 
 module.exports = { ProgressBarPage };

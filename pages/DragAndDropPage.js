@@ -9,8 +9,8 @@ class DragAndDropPage {
 
     async open() {
         await this.page.goto('/droppable');
-        await this.page.waitForFunction(
-            () => document.querySelector('#draggable')?.classList.contains('ui-draggable')
+        await this.page.waitForFunction(() =>
+            document.querySelector('#draggable')?.classList.contains('ui-draggable'),
         );
     }
 

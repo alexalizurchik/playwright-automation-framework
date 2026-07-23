@@ -97,15 +97,15 @@ class FormsPage {
         await this.stateInput.fill(state);
 
         const stateOption = this.stateSelect.getByText(state, { exact: true });
-        
+
         await stateOption.waitFor({ state: 'visible' });
         await stateOption.click();
-        
+
         await this.citySelect.click();
         await this.cityInput.fill(city);
 
         const cityOption = this.citySelect.getByText(city, { exact: true });
-        
+
         await cityOption.waitFor({ state: 'visible' });
         await cityOption.click();
     }
@@ -145,7 +145,7 @@ class FormsPage {
             expectedData.subjects,
             expectedData.hobbies.join(', '),
             expectedData.picture,
-            `${expectedData.state} ${expectedData.city}`
+            `${expectedData.state} ${expectedData.city}`,
         ];
 
         for (const value of expectedValues) {
