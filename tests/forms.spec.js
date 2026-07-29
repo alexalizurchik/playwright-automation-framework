@@ -1,7 +1,11 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 const { practiceFormUser, formInvalidEmail, formInvalidMobile } = require('./test-data');
 
 test.describe('@ui Practice Form tests', async () => {
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    });
+
     test('@smoke Should fill the form and submit it', async ({ formsPage }) => {
         await formsPage.open();
         await formsPage.fillForm(practiceFormUser);

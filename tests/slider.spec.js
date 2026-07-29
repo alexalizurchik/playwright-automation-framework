@@ -1,6 +1,10 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 
 test.describe('@ui Slider tests', async () => {
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    });
+
     test('@regression Should move slider to the value', async ({ sliderPage }) => {
         const firstTargetValue = 100;
         const secondTargetValue = 40;

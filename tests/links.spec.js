@@ -1,8 +1,12 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 
 test.describe('@ui Links page tests', () => {
     test.beforeEach(async ({ linksPage }) => {
         await linksPage.open();
+    });
+
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
     });
 
     test('@smoke Should navigate to the Home page when clicking the Home link', async ({

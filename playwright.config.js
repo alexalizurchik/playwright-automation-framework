@@ -33,6 +33,9 @@ module.exports = defineConfig({
         trace: 'on-first-retry',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
+
+        /* Snapshot path for toHaveScreenshot() visual comparisons */
+        snapshotPathTemplate: '{testFileDir}/__snapshots__/{testFileName}/{arg}{ext}',
     },
 
     /* Configure projects for major browsers */

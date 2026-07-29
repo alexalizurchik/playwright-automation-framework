@@ -1,4 +1,4 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 const { updatedWebTableUser, webTableUser } = require('./test-data');
 
 test.describe('@ui Web tables tests', () => {
@@ -9,6 +9,10 @@ test.describe('@ui Web tables tests', () => {
 
         await webTablesPage.open();
         await webTablesPage.addNewRecord(userData);
+    });
+
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
     });
 
     test('@regression Should add new record to the table and check it', async ({
