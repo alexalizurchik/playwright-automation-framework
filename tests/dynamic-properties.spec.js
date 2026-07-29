@@ -1,6 +1,10 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 
 test.describe('@ui Dynamic properties tests', async () => {
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    });
+
     test('@regression Should check button enabling', async ({ dynamicPage }) => {
         await dynamicPage.open();
         await dynamicPage.checkEnableAfterButton();

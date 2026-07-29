@@ -1,4 +1,4 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 
 test.describe('@ui Browser windows tests', () => {
     const expectedUrl = 'https://demoqa.com/sample';
@@ -6,6 +6,10 @@ test.describe('@ui Browser windows tests', () => {
 
     test.beforeEach(async ({ windowsPage }) => {
         await windowsPage.open();
+    });
+
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
     });
 
     test('@smoke Should open new tab and check url', async ({ windowsPage }) => {

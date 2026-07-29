@@ -10,6 +10,8 @@
         "test:api": "playwright test --grep @api",
         "test:smoke": "playwright test --grep @smoke",
         "test:regression": "playwright test --grep @regression",
+        "test:update-snapshots": "playwright test --update-snapshots",
+        "test:update-snapshots-headed": "playwright test --update-snapshots --headed",
         "report": "playwright show-report",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",

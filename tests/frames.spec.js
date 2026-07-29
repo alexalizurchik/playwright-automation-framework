@@ -1,6 +1,10 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 
 test.describe('@ui Frames tests', async () => {
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    });
+
     test('@regression Should check a frame heading', async ({ framesPage }) => {
         const expectedFrameHeading = 'This is a sample page';
 

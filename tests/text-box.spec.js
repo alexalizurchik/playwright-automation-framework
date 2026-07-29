@@ -1,7 +1,11 @@
-const { test } = require('../fixtures');
+const { test, expect } = require('../fixtures');
 const { textBoxUser, formInvalidEmail } = require('./test-data');
 
 test.describe('@ui Text box tests', async () => {
+    test.afterEach(async ({ page }) => {
+        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    });
+
     test('@regression Should show a successful message after form submitting', async ({
         textBoxPage,
     }) => {
