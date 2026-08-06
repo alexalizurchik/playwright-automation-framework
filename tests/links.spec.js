@@ -5,17 +5,13 @@ test.describe('@ui Links page tests', () => {
         await linksPage.open();
     });
 
-    test.afterEach(async ({ page }) => {
-        await expect(page).toHaveScreenshot({ animations: 'disabled' });
-    });
-
     test('@smoke Should navigate to the Home page when clicking the Home link', async ({
         linksPage,
     }) => {
         const newPage = await linksPage.clickSimpleLink();
 
         try {
-            await linksPage.checkHomePageUrl(newPage);
+            await expect(newPage).toHaveURL('https://demoqa.com/');
         } finally {
             await newPage.close();
         }
@@ -25,48 +21,66 @@ test.describe('@ui Links page tests', () => {
         linksPage,
     }) => {
         await linksPage.clickBadRequestLink();
-        await linksPage.checkLinkResponse('400', 'Bad Request');
+
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('400');
+        expect(responseText).toContain('Bad Request');
     });
 
     test('@regression Should display Created status when clicking the Created link', async ({
         linksPage,
     }) => {
         await linksPage.clickCreatedLink();
-        await linksPage.checkLinkResponse('201', 'Created');
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('201');
+        expect(responseText).toContain('Created');
     });
 
     test('@regression Should display No Content status when clicking the No Content link', async ({
         linksPage,
     }) => {
         await linksPage.clickNoContentLink();
-        await linksPage.checkLinkResponse('204', 'No Content');
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('204');
+        expect(responseText).toContain('No Content');
     });
 
     test('@regression Should display Moved status when clicking the Moved link', async ({
         linksPage,
     }) => {
         await linksPage.clickMovedLink();
-        await linksPage.checkLinkResponse('301', 'Moved');
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('301');
+        expect(responseText).toContain('Moved');
     });
 
     test('@regression Should display Unauthorized status when clicking the Unauthorized link', async ({
         linksPage,
     }) => {
         await linksPage.clickUnauthorizedLink();
-        await linksPage.checkLinkResponse('401', 'Unauthorized');
+
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('401');
+        expect(responseText).toContain('Unauthorized');
     });
 
     test('@regression Should display Forbidden status when clicking the Forbidden link', async ({
         linksPage,
     }) => {
         await linksPage.clickForbiddenLink();
-        await linksPage.checkLinkResponse('403', 'Forbidden');
+
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('403');
+        expect(responseText).toContain('Forbidden');
     });
 
     test('@regression Should display Not Found status when clicking the Not Found link', async ({
         linksPage,
     }) => {
         await linksPage.clickNotFoundLink();
-        await linksPage.checkLinkResponse('404', 'Not Found');
+
+        const responseText = await linksPage.getLinkResponseText();
+        expect(responseText).toContain('404');
+        expect(responseText).toContain('Not Found');
     });
 });

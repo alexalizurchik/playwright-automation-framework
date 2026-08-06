@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class FramesPage {
     constructor(page) {
         this.page = page;
@@ -13,16 +11,16 @@ class FramesPage {
         await this.page.goto(path);
     }
 
-    async checkBigFrameHeading(text) {
-        await expect(this.bigFrame.locator(this.frameHeading)).toHaveText(text);
+    async getBigFrameHeading() {
+        return await this.bigFrame.locator(this.frameHeading).innerText();
     }
 
-    async checkChildFrameHeading(text) {
-        await expect(this.childFrame.locator('p')).toHaveText(text);
+    async getChildFrameHeading() {
+        return await this.childFrame.locator('p').innerText();
     }
 
-    async checkChildFrameIsHidden() {
-        await expect(this.childFrame.locator('p')).toBeHidden();
+    async isChildFrameVisible() {
+        return await this.childFrame.locator('p').isVisible();
     }
 }
 

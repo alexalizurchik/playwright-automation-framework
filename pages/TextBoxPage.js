@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class TextBoxPage {
     constructor(page) {
         this.page = page;
@@ -26,13 +24,12 @@ class TextBoxPage {
         await this.clickSubmit();
     }
 
-    async checkOutputBlockText(text) {
-        await expect(this.outputBlock).toBeVisible();
-        await expect(this.outputBlock).toContainText(text);
+    async getOutputText() {
+        return await this.outputBlock.innerText();
     }
 
-    async checkOutputBlockNotVisible() {
-        await expect(this.outputBlock).toBeHidden();
+    async isOutputVisible() {
+        return await this.outputBlock.isVisible();
     }
 }
 

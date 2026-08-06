@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class WebTablesPage {
     constructor(page) {
         this.page = page;
@@ -29,23 +27,7 @@ class WebTablesPage {
         await this.salaryInput.fill(userData.salary.toString());
         await this.departmentInput.fill(userData.department);
         await this.submitButton.click();
-        await expect(this.modalContent).not.toBeVisible();
-    }
-
-    async checkNewAddedRecord(userData) {
-        const expectedValues = [
-            userData.firstName,
-            userData.lastName,
-            userData.email,
-            userData.age.toString(),
-            userData.salary.toString(),
-            userData.department,
-        ];
-        const lastTableRow = this.tableRows.last();
-
-        for (const value of expectedValues) {
-            await expect(lastTableRow).toContainText(value);
-        }
+        await this.modalContent.waitFor({ state: 'hidden' });
     }
 
     async editRecordByAnchor(rowAnchor, updatedData) {
@@ -71,21 +53,7 @@ class WebTablesPage {
         }
 
         await this.submitButton.click();
-        await expect(this.modalContent).not.toBeVisible();
-    }
-
-    async checkEditedRecord(rowAnchor, updatedData) {
-        const editedRow = this.tableRows.filter({ hasText: rowAnchor });
-
-        await expect(editedRow).toBeVisible();
-
-        const expectedValues = Object.values(updatedData)
-            .filter((value) => value !== undefined && value !== null)
-            .map((value) => value.toString());
-
-        for (const value of expectedValues) {
-            await expect(editedRow).toContainText(value);
-        }
+        await this.modalContent.waitFor({ state: 'hidden' });
     }
 
     async deleteRecordByAnchor(rowAnchor) {
@@ -95,15 +63,23 @@ class WebTablesPage {
         await deleteButton.click();
     }
 
-    async checkDeletedRecord(rowAnchor) {
-        await expect(this.table).not.toContainText(rowAnchor);
+    async getLastRowText() {
+        return await this.tableRows.last().innerText();
     }
 
-    async checkDeleteButtonNotPresent(rowAnchor) {
-        const deleteButton = this.tableRows
-            .filter({ hasText: rowAnchor })
-            .locator('[id^="delete-record-"]');
-        await expect(deleteButton).toHaveCount(0);
+    async getRowText(anchor) {
+        return await this.tableRows.filter({ hasText: anchor }).innerText();
+    }
+
+    async getRowCount(anchor) {
+        return await this.tableRows.filter({ hasText: anchor }).count();
+    }
+
+    async getDeleteButtonCount(anchor) {
+        return await this.tableRows
+            .filter({ hasText: anchor })
+            .locator('[id^="delete-record-"]')
+            .count();
     }
 }
 

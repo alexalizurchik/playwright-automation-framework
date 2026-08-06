@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class SliderPage {
     constructor(page) {
         this.page = page;
@@ -31,8 +29,8 @@ class SliderPage {
         }
     }
 
-    async checkInputValue(value) {
-        await expect(this.sliderValue).toHaveValue(String(value));
+    async getSliderValue() {
+        return await this.sliderValue.inputValue();
     }
 }
 

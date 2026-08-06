@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class LinksPage {
     constructor(page) {
         this.page = page;
@@ -62,13 +60,8 @@ class LinksPage {
         await this._linkResponse.waitFor({ state: 'visible' });
     }
 
-    async checkHomePageUrl(newPage) {
-        await expect(newPage).toHaveURL('https://demoqa.com/');
-    }
-
-    async checkLinkResponse(statusCode, statusText) {
-        await expect(this._linkResponse).toContainText(String(statusCode));
-        await expect(this._linkResponse).toContainText(statusText);
+    async getLinkResponseText() {
+        return await this._linkResponse.innerText();
     }
 }
 

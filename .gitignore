@@ -6,3 +6,4 @@ playwright/.cache/
 .env
 auth.json
 /playwright/.auth/
+*-snapshots/

@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class DynamicPage {
     constructor(page) {
         this.page = page;
@@ -11,26 +9,17 @@ class DynamicPage {
     async open() {
         await this.page.goto('/dynamic-properties');
     }
-
-    async checkEnableAfterButton() {
-        await expect(this.enableAfterButton).toBeDisabled();
-        await expect(this.enableAfterButton).toBeEnabled({ timeout: 6000 });
+    
+    async isEnableAfterButtonEnabled() {
+       return await this.enableAfterButton.isEnabled();
     }
 
-    async checkColorChangeButton() {
-        await expect(this.colorChangeButton).not.toHaveClass(/text-danger/);
-        await expect(this.colorChangeButton).toHaveClass(/text-danger/, { timeout: 6000 });
+    async getColorChangeButtonClass() {
+        return await this.colorChangeButton.getAttribute('class');
     }
 
-    async checkVisibleAfterButton() {
-        await expect(this.visibleAfterButton).toBeHidden();
-        await expect(this.visibleAfterButton).toBeVisible({ timeout: 6000 });
-    }
-
-    async clickButtonBeforeEnabled() {
-        await expect(this.enableAfterButton).toBeDisabled();
-        await this.enableAfterButton.click({ force: true });
-        await expect(this.enableAfterButton).toBeDisabled();
+   async isVisibleAfterButtonVisible() {
+        return await this.visibleAfterButton.isVisible();
     }
 }
 
