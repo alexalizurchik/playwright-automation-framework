@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class ProgressBarPage {
     constructor(page) {
         this.page = page;
@@ -20,13 +18,12 @@ class ProgressBarPage {
         await this.resetButton.click();
     }
 
-    async waitForCompletion() {
-        await expect(this.progressBar).toHaveText('100%', { timeout: 20000 });
+    async getProgressStatus() {
+        return await this.progressBar.innerText();
     }
 
-    async checkIsReset() {
-        const value = await this.progressBar.getAttribute('aria-valuenow');
-        expect(value).toBe('0');
+    async getProgressValue() {
+        return await this.progressBar.getAttribute('aria-valuenow');
     }
 }
 

@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class AlertsPage {
     constructor(page) {
         this.page = page;
@@ -9,35 +7,39 @@ class AlertsPage {
     }
 
     async open() {
-        await this.page.goto('/alerts');
+        await this.page.goto('/alerts', {
+            waitUntil: 'domcontentloaded',
+        });
+        
     }
 
-    async triggerDialog(shouldAccept = true, expectedText) {
-        this.page.once('dialog', (dialog) => {
-            if (expectedText) {
-                expect(dialog.message()).toBe(expectedText);
-            }
-
-            shouldAccept ? dialog.accept() : dialog.dismiss();
+    async handleConfirmDialog({ accept = true } = {}) {
+        const messagePromise = new Promise((resolve) => {
+            this.page.once('dialog', async (dialog) => {
+                resolve(dialog.message());
+                accept ? await dialog.accept() : await dialog.dismiss();
+            });
         });
 
         await this.confirmButton.click();
+
+        return messagePromise;
     }
 
-    async triggerAlert() {
+    async handleAlert() {
         this.page.once('dialog', (dialog) => {
             dialog.accept();
-        });
+       })
 
-        await this.alertButton.click();
+       await this.alertButton.click();
     }
 
-    async checkConfirmMessage(message) {
-        await expect(this.confirmMessage).toContainText(message);
+    async getConfirmMessage() {
+        return await this.confirmMessage.innerText();
     }
 
-    async checkConfirmMessageNotPresent() {
-        await expect(this.confirmMessage).toBeHidden();
+    async isConfirmMessageVisible() {
+        return await this.confirmMessage.isVisible();
     }
 }
 

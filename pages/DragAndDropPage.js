@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 class DragAndDropPage {
     constructor(page) {
         this.page = page;
@@ -15,11 +13,11 @@ class DragAndDropPage {
     }
 
     async dragAndDrop() {
-        await expect(this.droppableElement).toHaveText('Drop Here');
-
         await this.draggableElement.dragTo(this.droppableElement);
+    }
 
-        await expect(this.droppableElement).toHaveText('Dropped!');
+    async getDroppableText() {
+        return await this.droppableElement.innerText();
     }
 }
 

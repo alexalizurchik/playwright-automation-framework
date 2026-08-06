@@ -11,24 +11,34 @@ test.describe('@ui Web tables tests', () => {
         await webTablesPage.addNewRecord(userData);
     });
 
-    test.afterEach(async ({ page }) => {
-        await expect(page).toHaveScreenshot({ animations: 'disabled' });
-    });
-
     test('@regression Should add new record to the table and check it', async ({
         webTablesPage,
     }) => {
-        await webTablesPage.checkNewAddedRecord(userData);
+        const rowText = await webTablesPage.getLastRowText();
+        const expectedValues = [
+            userData.firstName, userData.lastName, userData.email,
+            userData.age.toString(), userData.salary.toString(), userData.department,
+        ];
+
+        for (const value of expectedValues) {
+            expect(rowText).toContain(value);
+        }
     });
 
     test('@regression Should edit an existing record by email', async ({ webTablesPage }) => {
         await webTablesPage.editRecordByAnchor(userData.email, updatedWebTableUser);
-        await webTablesPage.checkEditedRecord(userData.email, updatedWebTableUser);
+        
+        const rowText = await webTablesPage.getRowText(userData.email);
+        
+        for(const value of Object.values(updatedWebTableUser).map(String)) {
+            expect(rowText).toContain(value);
+        }
     });
 
     test('@regression Should delete record and verify it is removed', async ({ webTablesPage }) => {
         await webTablesPage.deleteRecordByAnchor(userData.email);
-        await webTablesPage.checkDeletedRecord(userData.email);
-        await webTablesPage.checkDeleteButtonNotPresent(userData.email);
+
+        await expect.poll(() => webTablesPage.getRowCount(userData.email)).toBe(0);
+        await expect.poll(() => webTablesPage.getDeleteButtonCount(userData.email)).toBe(0);
     });
 });

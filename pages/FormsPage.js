@@ -1,4 +1,3 @@
-const { expect } = require('@playwright/test');
 const path = require('path');
 
 class FormsPage {
@@ -125,32 +124,12 @@ class FormsPage {
         await this.clickSubmit();
     }
 
-    async submitEmptyForm() {
-        await this.clickSubmit();
+    async isModalVisible() {
+        return await this.modalContent.isVisible();
     }
 
-    async checkModalNotVisible() {
-        await expect(this.modalContent).not.toBeVisible();
-    }
-
-    async checkSubmissionResult(expectedData) {
-        await expect(this.modalContent).toBeVisible();
-
-        const expectedValues = [
-            `${expectedData.firstName} ${expectedData.lastName}`,
-            expectedData.email,
-            expectedData.gender,
-            expectedData.mobileNumber,
-            `${expectedData.dateOfBirth.day} ${expectedData.dateOfBirth.month},${expectedData.dateOfBirth.year}`,
-            expectedData.subjects,
-            expectedData.hobbies.join(', '),
-            expectedData.picture,
-            `${expectedData.state} ${expectedData.city}`,
-        ];
-
-        for (const value of expectedValues) {
-            await expect(this.modalContent).toContainText(value);
-        }
+    async getModalText() {
+        return await this.modalContent.innerText();
     }
 }
 

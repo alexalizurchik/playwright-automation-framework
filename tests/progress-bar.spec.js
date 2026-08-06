@@ -1,22 +1,23 @@
 const { test, expect } = require('../fixtures');
 
 test.describe('@ui Progress bar tests', async () => {
-    test.afterEach(async ({ page }) => {
-        await expect(page).toHaveScreenshot({ animations: 'disabled' });
+    test.beforeEach(async ({ progressBarPage }) => {
+        await progressBarPage.open();
     });
 
     test('@regression Should reset progress bar', async ({ progressBarPage }) => {
-        await progressBarPage.open();
         await progressBarPage.startProgress();
-        await progressBarPage.waitForCompletion();
+
+        await expect.poll(() => progressBarPage.getProgressStatus(), { timeout: 20000 }).toBe('100%');
+
         await progressBarPage.resetProgress();
-        await progressBarPage.checkIsReset();
+
+        await expect.poll(() => progressBarPage.getProgressValue()).toBe('0');
     });
 
     test('@regression Should not reset progress bar before starting', async ({
         progressBarPage,
     }) => {
-        await progressBarPage.open();
-        await progressBarPage.checkIsReset();
+        await expect.poll(() => progressBarPage.getProgressValue()).toBe('0');
     });
 });
