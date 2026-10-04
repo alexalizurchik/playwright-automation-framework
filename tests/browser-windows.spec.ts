@@ -1,7 +1,10 @@
-const { test, expect } = require('../fixtures');
+import { test, expect } from '../fixtures/index.js';
+import { Page } from '@playwright/test';
 
-
-async function checkPopup(newPage, assertion) {
+async function checkPopup(
+    newPage: Page,
+    assertion: (page: Page) => Promise<void>
+): Promise<void> {
     try {
         await assertion(newPage);
     } finally {
@@ -26,7 +29,8 @@ test.describe('@ui Browser windows tests', () => {
 
     test('@regression Should open new tab and check heading', async ({ windowsPage }) => {
         const newPage = await windowsPage.openNewTab();
-        const assertion = async () => expect(await windowsPage.getPopupHeading(newPage)).toBe(expectedHeading);
+        const assertion = async () =>
+            expect(await windowsPage.getPopupHeading(newPage)).toBe(expectedHeading);
         await checkPopup(newPage, assertion);
     });
 
@@ -39,7 +43,8 @@ test.describe('@ui Browser windows tests', () => {
 
     test('@regression Should open new window and check heading', async ({ windowsPage }) => {
         const newPage = await windowsPage.openNewWindow();
-        const assertion = async () => expect(await windowsPage.getPopupHeading(newPage)).toBe(expectedHeading);
+        const assertion = async () =>
+            expect(await windowsPage.getPopupHeading(newPage)).toBe(expectedHeading);
 
         await checkPopup(newPage, assertion);
     });
@@ -49,8 +54,9 @@ test.describe('@ui Browser windows tests', () => {
         const expectedText =
             'Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.';
 
-        const assertion = async () => expect(await windowsPage.getPopupBodyText(newPage)).toBe(expectedText);
-        
+        const assertion = async () =>
+            expect(await windowsPage.getPopupBodyText(newPage)).toBe(expectedText);
+
         await checkPopup(newPage, assertion);
     });
 });

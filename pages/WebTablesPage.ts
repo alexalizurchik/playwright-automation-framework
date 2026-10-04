@@ -1,6 +1,20 @@
-class WebTablesPage {
-    constructor(page) {
-        this.page = page;
+import { Page, Locator } from '@playwright/test';
+import { WebTableUser } from '../types.js';
+
+export class WebTablesPage {
+    readonly addButton: Locator;
+    readonly firstNameInput: Locator;
+    readonly lastNameInput: Locator;
+    readonly userEmailInput: Locator;
+    readonly ageInput: Locator;
+    readonly salaryInput: Locator;
+    readonly departmentInput: Locator;
+    readonly submitButton: Locator;
+    readonly table: Locator;
+    readonly tableRows: Locator;
+    readonly modalContent: Locator;
+
+    constructor(private readonly page: Page) {
         this.addButton = page.locator('#addNewRecordButton');
         this.firstNameInput = page.locator('#firstName');
         this.lastNameInput = page.locator('#lastName');
@@ -14,11 +28,11 @@ class WebTablesPage {
         this.modalContent = page.locator('.modal-content');
     }
 
-    async open() {
+    async open(): Promise<void> {
         await this.page.goto('/webtables');
     }
 
-    async addNewRecord(userData) {
+    async addNewRecord(userData: WebTableUser): Promise<void> {
         await this.addButton.click();
         await this.firstNameInput.fill(userData.firstName);
         await this.lastNameInput.fill(userData.lastName);
@@ -30,13 +44,13 @@ class WebTablesPage {
         await this.modalContent.waitFor({ state: 'hidden' });
     }
 
-    async editRecordByAnchor(rowAnchor, updatedData) {
+    async editRecordByAnchor(rowAnchor: string, updatedData: Partial<WebTableUser>): Promise<void> {
         const row = this.tableRows.filter({ hasText: rowAnchor });
         const editButton = row.locator('[id^="edit-record-"]');
 
         await editButton.click();
 
-        const inputFields = {
+        const inputFields: Record<string, Locator> = {
             firstName: this.firstNameInput,
             lastName: this.lastNameInput,
             email: this.userEmailInput,
@@ -56,31 +70,29 @@ class WebTablesPage {
         await this.modalContent.waitFor({ state: 'hidden' });
     }
 
-    async deleteRecordByAnchor(rowAnchor) {
+    async deleteRecordByAnchor(rowAnchor: string): Promise<void> {
         const row = this.tableRows.filter({ hasText: rowAnchor });
         const deleteButton = row.locator('[id^="delete-record-"]');
 
         await deleteButton.click();
     }
 
-    async getLastRowText() {
+    async getLastRowText(): Promise<string> {
         return await this.tableRows.last().innerText();
     }
 
-    async getRowText(anchor) {
+    async getRowText(anchor: string): Promise<string> {
         return await this.tableRows.filter({ hasText: anchor }).innerText();
     }
 
-    async getRowCount(anchor) {
+    async getRowCount(anchor: string): Promise<number> {
         return await this.tableRows.filter({ hasText: anchor }).count();
     }
 
-    async getDeleteButtonCount(anchor) {
+    async getDeleteButtonCount(anchor: string): Promise<number> {
         return await this.tableRows
             .filter({ hasText: anchor })
             .locator('[id^="delete-record-"]')
             .count();
     }
 }
-
-module.exports = { WebTablesPage };

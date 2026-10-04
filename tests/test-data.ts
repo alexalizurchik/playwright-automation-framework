@@ -1,11 +1,13 @@
-const textBoxUser = {
+import { TextBoxUser, PracticeFormUser, WebTableUser, UserCredentials } from '../types.js';
+
+export const textBoxUser: TextBoxUser = {
     firstName: 'John',
     lastName: 'Doe',
     email: process.env.USER_EMAIL || 'john.doe@example.com',
     address: process.env.USER_ADDRESS || '221B Baker Street',
 };
 
-const practiceFormUser = {
+export const practiceFormUser: PracticeFormUser = {
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
@@ -24,7 +26,7 @@ const practiceFormUser = {
     city: 'Delhi',
 };
 
-const webTableUser = {
+export const webTableUser: WebTableUser = {
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
@@ -33,39 +35,26 @@ const webTableUser = {
     department: 'IT',
 };
 
-const updatedWebTableUser = {
+export const updatedWebTableUser: Partial<WebTableUser> = {
     firstName: 'Johnny',
     salary: 60000,
 };
 
-const invalidUser = {
+export const invalidUser: UserCredentials = {
     userName: 'nonexistent_user',
     password: 'WrongPassword!',
 };
 
-const formInvalidEmail = {
+export const formInvalidEmail: PracticeFormUser = {
     ...practiceFormUser,
     email: 'not-an-email',
 };
 
-const formInvalidMobile = {
+export const formInvalidMobile: PracticeFormUser = {
     ...practiceFormUser,
     mobileNumber: '123456789',
 };
 
-const nonExistentIsbn = '0000000000';
-const fakeUserId = '00000000-0000-0000-0000-000000000000';
-const emptyToken = '';
-
-module.exports = {
-    textBoxUser,
-    practiceFormUser,
-    webTableUser,
-    updatedWebTableUser,
-    invalidUser,
-    formInvalidEmail,
-    formInvalidMobile,
-    nonExistentIsbn,
-    fakeUserId,
-    emptyToken,
-};
+export const nonExistentIsbn: string = '0000000000';
+export const fakeUserId: string = '00000000-0000-0000-0000-000000000000';
+export const emptyToken: string = '';

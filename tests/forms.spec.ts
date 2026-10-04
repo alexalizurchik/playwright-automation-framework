@@ -1,8 +1,8 @@
-const { test, expect } = require('../fixtures');
-const { practiceFormUser, formInvalidEmail, formInvalidMobile } = require('./test-data');
+import { test, expect } from '../fixtures/index.js';
+import { practiceFormUser, formInvalidEmail, formInvalidMobile } from './test-data.js';
 
 test.describe('@ui Practice Form tests', async () => {
-    test.beforeEach(async ({formsPage}) => {
+    test.beforeEach(async ({ formsPage }) => {
         await formsPage.open();
     });
 

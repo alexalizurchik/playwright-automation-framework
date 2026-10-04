@@ -1,4 +1,4 @@
-const { test, expect } = require('../fixtures');
+import { test, expect } from '../fixtures/index.js';
 
 test.describe('@ui Links page tests', () => {
     test.beforeEach(async ({ linksPage }) => {

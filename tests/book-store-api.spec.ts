@@ -1,5 +1,5 @@
-const { test, expect } = require('../fixtures');
-const { invalidUser, nonExistentIsbn, fakeUserId, emptyToken } = require('./test-data');
+import { test, expect } from '../fixtures/index.js';
+import { invalidUser, nonExistentIsbn, fakeUserId, emptyToken } from './test-data.js';
 
 test.describe('@api Book Store API tests', () => {
     test('@smoke Should authorise user successfully', async ({ authorizedUser }) => {

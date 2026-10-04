@@ -1,8 +1,8 @@
-const { test, expect } = require('../fixtures');
-const { updatedWebTableUser, webTableUser } = require('./test-data');
+import { test, expect } from '../fixtures/index.js';
+import { updatedWebTableUser, webTableUser } from './test-data.js';
 
 test.describe('@ui Web tables tests', () => {
-    let userData;
+    let userData = { ...webTableUser };
 
     test.beforeEach(async ({ webTablesPage }) => {
         userData = { ...webTableUser };
@@ -16,8 +16,12 @@ test.describe('@ui Web tables tests', () => {
     }) => {
         const rowText = await webTablesPage.getLastRowText();
         const expectedValues = [
-            userData.firstName, userData.lastName, userData.email,
-            userData.age.toString(), userData.salary.toString(), userData.department,
+            userData.firstName,
+            userData.lastName,
+            userData.email,
+            userData.age.toString(),
+            userData.salary.toString(),
+            userData.department,
         ];
 
         for (const value of expectedValues) {
@@ -27,10 +31,10 @@ test.describe('@ui Web tables tests', () => {
 
     test('@regression Should edit an existing record by email', async ({ webTablesPage }) => {
         await webTablesPage.editRecordByAnchor(userData.email, updatedWebTableUser);
-        
+
         const rowText = await webTablesPage.getRowText(userData.email);
-        
-        for(const value of Object.values(updatedWebTableUser).map(String)) {
+
+        for (const value of Object.values(updatedWebTableUser).map(String)) {
             expect(rowText).toContain(value);
         }
     });

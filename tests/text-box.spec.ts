@@ -1,5 +1,5 @@
-const { test, expect } = require('../fixtures');
-const { textBoxUser, formInvalidEmail } = require('./test-data');
+import { test, expect } from '../fixtures/index.js';
+import { textBoxUser, formInvalidEmail } from './test-data.js';
 
 test.describe('@ui Text box tests', async () => {
     test.beforeEach(async ({ textBoxPage }) => {
@@ -11,11 +11,13 @@ test.describe('@ui Text box tests', async () => {
     }) => {
         await textBoxPage.fillForm(textBoxUser);
 
-        expect(await textBoxPage.getOutputText()).toContain(`${textBoxUser.firstName} ${textBoxUser.lastName}`);
+        expect(await textBoxPage.getOutputText()).toContain(
+            `${textBoxUser.firstName} ${textBoxUser.lastName}`,
+        );
     });
 
     test('@smoke Should not submit form with invalid email', async ({ textBoxPage }) => {
-        await textBoxPage.fillForm(formInvalidEmail);
+        await textBoxPage.fillForm({ ...textBoxUser, email: 'not-an-email' });
 
         expect(await textBoxPage.isOutputVisible()).toBe(false);
     });

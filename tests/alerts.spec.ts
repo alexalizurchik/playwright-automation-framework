@@ -1,7 +1,7 @@
-const { test, expect } = require('../fixtures');
+import { test, expect } from '../fixtures/index.js';
 
 test.describe('@ui Alerts and Dialogs Tests', () => {
-     test.beforeEach(async ({ alertsPage }) => {
+    test.beforeEach(async ({ alertsPage }) => {
         await alertsPage.open();
     });
 
@@ -17,7 +17,7 @@ test.describe('@ui Alerts and Dialogs Tests', () => {
     test('@regression Should verify the text inside the dialog', async ({ alertsPage }) => {
         const dialogMessage = 'Do you confirm action?';
         const message = await alertsPage.handleConfirmDialog({ accept: true });
-        
+
         expect(message).toBe(dialogMessage);
     });
 

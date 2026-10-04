@@ -1,4 +1,4 @@
-const { test, expect } = require('../fixtures');
+import { test, expect } from '../fixtures/index.js';
 
 test.describe('@ui Frames tests', async () => {
     test('@regression Should check a frame heading', async ({ framesPage }) => {
