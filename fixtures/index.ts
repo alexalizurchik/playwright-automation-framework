@@ -9,6 +9,7 @@ import { DynamicPage } from '../pages/DynamicPage.js';
 import { WindowsPage } from '../pages/WindowsPage.js';
 import { FormsPage } from '../pages/FormsPage.js';
 import { WebTablesPage } from '../pages/WebTablesPage.js';
+import { BookStorePage } from '../pages/BookStorePage.js';
 import { BookStoreApi } from '../pages/BookStoreApi.js';
 import { LinksPage } from '../pages/LinksPage.js';
 import { UserCredentials } from '../types.js';
@@ -25,6 +26,7 @@ type MyFixtures = {
     windowsPage: WindowsPage;
     formsPage: FormsPage;
     webTablesPage: WebTablesPage;
+    bookStorePage: BookStorePage;
     linksPage: LinksPage;
     authorizedUser: AuthorizedUser;
     firstBookIsbn: string;
@@ -74,6 +76,9 @@ const test = base.extend<MyFixtures>({
     },
     webTablesPage: async ({ page }, use) => {
         await use(new WebTablesPage(page));
+    },
+    bookStorePage: async ({ page }, use) => {
+        await use(new BookStorePage(page));
     },
     linksPage: async ({ page }, use) => {
         await use(new LinksPage(page));
