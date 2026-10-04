@@ -1,6 +1,17 @@
-class LinksPage {
-    constructor(page) {
-        this.page = page;
+import { Page, Locator } from '@playwright/test';
+
+export class LinksPage {
+    private readonly _simpleLink: Locator;
+    private readonly _createdLink: Locator;
+    private readonly _noContentLink: Locator;
+    private readonly _movedLink: Locator;
+    private readonly _badRequestLink: Locator;
+    private readonly _unauthorizedLink: Locator;
+    private readonly _forbiddenLink: Locator;
+    private readonly _notFoundLink: Locator;
+    private readonly _linkResponse: Locator;
+
+    constructor(private readonly page: Page) {
         this._simpleLink = page.locator('#simpleLink');
         this._createdLink = page.locator('#created');
         this._noContentLink = page.locator('#no-content');
@@ -12,11 +23,11 @@ class LinksPage {
         this._linkResponse = page.locator('#linkResponse');
     }
 
-    async open() {
+    async open(): Promise<void> {
         await this.page.goto('/links');
     }
 
-    async clickSimpleLink() {
+    async clickSimpleLink(): Promise<Page> {
         const pagePromise = this.page.context().waitForEvent('page');
 
         await this._simpleLink.click();
@@ -27,42 +38,40 @@ class LinksPage {
         return newPage;
     }
 
-    async clickBadRequestLink() {
+    async clickBadRequestLink(): Promise<void> {
         await this._clickApiLink(this._badRequestLink);
     }
 
-    async clickCreatedLink() {
+    async clickCreatedLink(): Promise<void> {
         await this._clickApiLink(this._createdLink);
     }
 
-    async clickNoContentLink() {
+    async clickNoContentLink(): Promise<void> {
         await this._clickApiLink(this._noContentLink);
     }
 
-    async clickMovedLink() {
+    async clickMovedLink(): Promise<void> {
         await this._clickApiLink(this._movedLink);
     }
 
-    async clickUnauthorizedLink() {
+    async clickUnauthorizedLink(): Promise<void> {
         await this._clickApiLink(this._unauthorizedLink);
     }
 
-    async clickForbiddenLink() {
+    async clickForbiddenLink(): Promise<void> {
         await this._clickApiLink(this._forbiddenLink);
     }
 
-    async clickNotFoundLink() {
+    async clickNotFoundLink(): Promise<void> {
         await this._clickApiLink(this._notFoundLink);
     }
 
-    async _clickApiLink(linkLocator) {
+    async _clickApiLink(linkLocator: Locator): Promise<void> {
         await linkLocator.click();
         await this._linkResponse.waitFor({ state: 'visible' });
     }
 
-    async getLinkResponseText() {
+    async getLinkResponseText(): Promise<string> {
         return await this._linkResponse.innerText();
     }
 }
-
-module.exports = { LinksPage };

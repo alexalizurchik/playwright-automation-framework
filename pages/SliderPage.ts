@@ -1,15 +1,19 @@
-class SliderPage {
-    constructor(page) {
-        this.page = page;
+import { Page, Locator } from '@playwright/test';
+
+export class SliderPage {
+    readonly slider: Locator;
+    readonly sliderValue: Locator;
+
+    constructor(private readonly page: Page) {
         this.slider = page.locator('#slider');
         this.sliderValue = page.locator('#sliderValue');
     }
 
-    async open() {
+    async open(): Promise<void> {
         await this.page.goto('/slider');
     }
 
-    async setSliderRange(targetValue) {
+    async setSliderRange(targetValue: number): Promise<void> {
         const target = Number(targetValue);
 
         await this.slider.click();
@@ -29,9 +33,7 @@ class SliderPage {
         }
     }
 
-    async getSliderValue() {
+    async getSliderValue(): Promise<string> {
         return await this.sliderValue.inputValue();
     }
 }
-
-module.exports = { SliderPage };

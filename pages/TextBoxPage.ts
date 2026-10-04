@@ -1,6 +1,14 @@
-class TextBoxPage {
-    constructor(page) {
-        this.page = page;
+import { Page, Locator } from '@playwright/test';
+import { TextBoxUser } from '../types.js';
+
+export class TextBoxPage {
+    readonly fullNameInput: Locator;
+    readonly emailInput: Locator;
+    readonly currentAddressInput: Locator;
+    readonly submitButton: Locator;
+    readonly outputBlock: Locator;
+
+    constructor(private readonly page: Page) {
         this.fullNameInput = page.getByPlaceholder('Full Name');
         this.emailInput = page.getByPlaceholder('name@example.com');
         this.currentAddressInput = page.getByPlaceholder('Current Address');
@@ -8,15 +16,15 @@ class TextBoxPage {
         this.outputBlock = page.locator('#output');
     }
 
-    async open() {
+    async open(): Promise<void> {
         await this.page.goto('/text-box');
     }
 
-    async clickSubmit() {
+    async clickSubmit(): Promise<void> {
         await this.submitButton.click();
     }
 
-    async fillForm(userData) {
+    async fillForm(userData: TextBoxUser): Promise<void> {
         await this.fullNameInput.fill(`${userData.firstName} ${userData.lastName}`);
         await this.emailInput.fill(userData.email);
         await this.currentAddressInput.fill(userData.address);
@@ -24,13 +32,11 @@ class TextBoxPage {
         await this.clickSubmit();
     }
 
-    async getOutputText() {
-        return await this.outputBlock.innerText();
+    async getOutputText(): Promise<string> {
+        return this.outputBlock.innerText();
     }
 
-    async isOutputVisible() {
-        return await this.outputBlock.isVisible();
+    async isOutputVisible(): Promise<boolean> {
+        return this.outputBlock.isVisible();
     }
 }
-
-module.exports = { TextBoxPage };

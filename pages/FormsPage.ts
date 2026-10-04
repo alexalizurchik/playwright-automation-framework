@@ -1,9 +1,30 @@
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Page, Locator } from '@playwright/test';
+import { PracticeFormUser, DateOfBirth } from '../types.js';
 
-class FormsPage {
-    constructor(page) {
-        this.page = page;
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
+export class FormsPage {
+    readonly firstNameInput: Locator;
+    readonly lastNameInput: Locator;
+    readonly userEmailInput: Locator;
+    readonly userNumberInput: Locator;
+    readonly currentAddressInput: Locator;
+    readonly uploadPictureInput: Locator;
+    readonly dateOfBirthInput: Locator;
+    readonly daySelect: Locator;
+    readonly monthSelect: Locator;
+    readonly yearSelect: Locator;
+    readonly subjectsInput: Locator;
+    readonly stateSelect: Locator;
+    readonly stateInput: Locator;
+    readonly citySelect: Locator;
+    readonly cityInput: Locator;
+    readonly submitButton: Locator;
+    readonly modalContent: Locator;
+
+    constructor(private readonly page: Page) {
         //Basic info
         this.firstNameInput = page.locator('#firstName');
         this.lastNameInput = page.locator('#lastName');
@@ -34,11 +55,11 @@ class FormsPage {
         this.modalContent = page.locator('.modal-content');
     }
 
-    async open() {
+    async open(): Promise<void> {
         await this.page.goto('/automation-practice-form');
     }
 
-    async fillBaseInfo(userData) {
+    async fillBaseInfo(userData: PracticeFormUser): Promise<void> {
         await this.firstNameInput.fill(userData.firstName);
         await this.lastNameInput.fill(userData.lastName);
         await this.userEmailInput.fill(userData.email);
@@ -48,15 +69,15 @@ class FormsPage {
         }
     }
 
-    async clickSubmit() {
+    async clickSubmit(): Promise<void> {
         await this.submitButton.click();
     }
 
-    async selectGender(gender) {
+    async selectGender(gender: string): Promise<void> {
         await this.page.getByText(gender, { exact: true }).click();
     }
 
-    async selectDateOfBirth(dateOfBirth) {
+    async selectDateOfBirth(dateOfBirth: DateOfBirth): Promise<void> {
         await this.dateOfBirthInput.click();
         await this.monthSelect.selectOption(dateOfBirth.month);
         await this.yearSelect.selectOption(dateOfBirth.year);
@@ -69,7 +90,7 @@ class FormsPage {
         await this.page.keyboard.press('Escape');
     }
 
-    async selectSubjects(subjects) {
+    async selectSubjects(subjects: string): Promise<void> {
         await this.subjectsInput.click();
         await this.subjectsInput.fill(subjects);
 
@@ -79,19 +100,19 @@ class FormsPage {
         await option.first().click();
     }
 
-    async selectHobbies(hobbies) {
+    async selectHobbies(hobbies: string[]): Promise<void> {
         for (const hobby of hobbies) {
             await this.page.getByText(hobby, { exact: true }).click();
         }
     }
 
-    async uploadPicture(fileName) {
-        const filePath = path.resolve(__dirname, `../test-assets/${fileName}`);
+    async uploadPicture(fileName: string): Promise<void> {
+        const filePath = path.resolve(currentDir, `../test-assets/${fileName}`);
 
         await this.uploadPictureInput.setInputFiles(filePath);
     }
 
-    async selectStateAndCity(state, city) {
+    async selectStateAndCity(state: string, city: string): Promise<void> {
         await this.stateSelect.click();
         await this.stateInput.fill(state);
 
@@ -109,7 +130,7 @@ class FormsPage {
         await cityOption.click();
     }
 
-    async fillForm(userData) {
+    async fillForm(userData: PracticeFormUser): Promise<void> {
         await this.fillBaseInfo(userData);
         await this.selectGender(userData.gender);
         await this.selectDateOfBirth(userData.dateOfBirth);
@@ -124,13 +145,11 @@ class FormsPage {
         await this.clickSubmit();
     }
 
-    async isModalVisible() {
+    async isModalVisible(): Promise<boolean> {
         return await this.modalContent.isVisible();
     }
 
-    async getModalText() {
+    async getModalText(): Promise<string> {
         return await this.modalContent.innerText();
     }
 }
-
-module.exports = { FormsPage };

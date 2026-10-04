@@ -1,7 +1,7 @@
-const playwright = require('eslint-plugin-playwright');
-const prettier = require('eslint-config-prettier');
+import playwright from 'eslint-plugin-playwright';
+import prettier from 'eslint-config-prettier';
 
-module.exports = [
+export default [
     {
         ignores: ['node_modules/', 'playwright-report/', 'test-results/', 'blob-report/'],
     },
@@ -9,11 +9,8 @@ module.exports = [
         files: ['**/*.js'],
         languageOptions: {
             ecmaVersion: 2022,
-            sourceType: 'script',
+            sourceType: 'module',
             globals: {
-                require: 'readonly',
-                module: 'readonly',
-                __dirname: 'readonly',
                 process: 'readonly',
                 console: 'readonly',
                 document: 'readonly',

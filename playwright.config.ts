@@ -1,18 +1,9 @@
-const { defineConfig, devices } = require('@playwright/test');
-require('dotenv').config();
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-module.exports = defineConfig({
+export default defineConfig({
     testDir: './tests',
     /* Run tests in files in parallel */
     fullyParallel: true,
@@ -24,6 +15,8 @@ module.exports = defineConfig({
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: 'html',
+    /* Snapshot path for toHaveScreenshot() visual comparisons */
+    snapshotPathTemplate: '{testFileDir}/__snapshots__/{testFileName}/{arg}{ext}',
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('')`. */
@@ -33,9 +26,6 @@ module.exports = defineConfig({
         trace: 'on-first-retry',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
-
-        /* Snapshot path for toHaveScreenshot() visual comparisons */
-        snapshotPathTemplate: '{testFileDir}/__snapshots__/{testFileName}/{arg}{ext}',
     },
 
     /* Configure projects for major browsers */

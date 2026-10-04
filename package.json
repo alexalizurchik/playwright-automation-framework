@@ -1,6 +1,7 @@
 {
     "name": "playwright-automation-framework",
     "version": "1.0.0",
+    "type": "module",
     "main": "index.js",
     "scripts": {
         "test": "playwright test",
@@ -16,7 +17,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "format": "prettier --check .",
-        "format:fix": "prettier --write ."
+        "format:fix": "prettier --write .",
+        "typecheck": "tsc --noEmit"
     },
     "keywords": [],
     "author": "",
@@ -28,7 +30,8 @@
         "eslint": "^10.7.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-playwright": "^2.10.5",
-        "prettier": "^3.9.6"
+        "prettier": "^3.9.6",
+        "typescript": "^7.0.2"
     },
     "dependencies": {
         "dotenv": "^17.4.2"
